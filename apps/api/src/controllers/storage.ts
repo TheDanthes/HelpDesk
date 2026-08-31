@@ -1,0 +1,71 @@
+//@ts-nocheck
+import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
+import multer from "fastify-multer";
+import { assertTicketAccess, requireTenantScope } from "../lib/tenant";
+import { prisma } from "../prisma";
+const upload = multer({ dest: "uploads/" });
+
+export function objectStoreRoutes(fastify: FastifyInstance) {
+  //
+  fastify.post(
+    "/api/v1/storage/ticket/:id/upload/single",
+    {
+      preHandler: upload.single("file"),
+      schema: {
+        params: {
+          type: "object",
+          properties: {
+            id: { type: "string" },
+          },
+          required: ["id"],
+        },
+        body: {
+          type: "object",
+          properties: {
+            user: { type: "string" },
+          },
+          required: ["user"],
+        },
+        response: {
+          200: {
+            type: "object",
+            properties: {
+              success: { type: "boolean" },
+            },
+            additionalProperties: true,
+          },
+        },
+      },
+    },
+
+    async (request: FastifyRequest, reply: FastifyReply) => {
+      const scope = await requireTenantScope(request, reply);
+      if (!scope) return;
+      if (!(await assertTicketAccess(scope, request.params.id, reply))) return;
+
+      const uploadedFile = await prisma.ticketFile.create({
+        data: {
+          ticketId: request.params.id,
+          filename: request.file.originalname,
+          path: request.file.path,
+          mime: request.file.mimetype,
+          size: request.file.size,
+          encoding: request.file.encoding,
+          userId: request.body.user,
+        },
+      });
+
+      console.log(uploadedFile);
+
+      reply.send({
+        success: true,
+      });
+    }
+  );
+
+  // Get all ticket attachments
+
+  // Delete an attachment
+
+  // Download an attachment
+}

@@ -1,0 +1,23 @@
+# Stack de desarrollo local: solo la base de datos.
+#
+#   docker compose up -d
+#   pnpm install && pnpm dev
+#
+# Para desplegar en ZimaOS ver deploy/zimaos/.
+
+services:
+  postgres:
+    image: postgres:17.6-alpine
+    container_name: ondesk_postgres_dev
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ondesk
+      POSTGRES_PASSWORD: ondesk
+      POSTGRES_DB: ondesk
+    volumes:
+      - ondesk_postgres_dev:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+volumes:
+  ondesk_postgres_dev:

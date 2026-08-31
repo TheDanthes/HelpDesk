@@ -1,0 +1,29 @@
+# Construccion de las imagenes de OnDesk desde el codigo fuente.
+#
+# Se usa UNA sola vez por version, desde SSH en el ZimaOS, parado en la raiz
+# del proyecto:
+#
+#   docker compose -f deploy/zimaos/docker-compose.build.yml build
+#
+# Deja las imagenes ondesk/api:beta y ondesk/client:beta en el Docker local.
+# Despues se instala la app desde la interfaz web con docker-compose.yml.
+#
+# Este archivo NO levanta nada: es solo para buildear.
+
+services:
+  api:
+    image: ondesk/api:beta
+    build:
+      context: ../..
+      dockerfile: apps/api/Dockerfile
+
+  client:
+    image: ondesk/client:beta
+    build:
+      context: ../..
+      dockerfile: apps/client/Dockerfile
+      args:
+        # Nombre del servicio de la API dentro de la red del stack.
+        # Se hornea en el bundle: si cambia el nombre del servicio en
+        # docker-compose.yml, hay que rebuildear el cliente.
+        API_URL: http://api:3001
