@@ -35,7 +35,7 @@ services:
       postgres:
         condition: service_healthy
     environment:
-      DATABASE_URL: postgresql://ondesk:cambiame_en_produccion@ondesk-postgres:5432/ondesk
+      DATABASE_URL: postgresql://ondesk:cambiame_en_produccion@postgres:5432/ondesk
       # Clave de firma de sesiones, en base64. Generar una propia con:
       #   openssl rand -base64 32
       SECRET: Q0FNQklBTUUtRVNUQS1DTEFWRS1BTlRFUy1ERS1VU0FS
