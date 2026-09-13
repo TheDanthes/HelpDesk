@@ -7,69 +7,54 @@ El stack son tres contenedores: `postgres`, `api` y `client`. No usa Redis.
 
 ---
 
-## Preparacion, una sola vez
+## De donde salen las imagenes
 
-### 1. Repositorio privado en GitHub
+Repositorio: https://github.com/TheDanthes/HelpDesk
 
-```bash
-gh repo create ondesk --private --source=. --push
-```
+Cada push a `main` dispara `.github/workflows/build.yml`, que construye las dos
+imagenes y las publica en GHCR. Se sigue desde la pestaña **Actions** del repo.
+La primera vuelta tarda cerca de diez minutos (el `next build` del cliente es lo
+lento); las siguientes reusan cache y bajan a pocos minutos.
 
-O crear el repo vacio desde la web y despues:
-
-```bash
-git remote add origin git@github.com:TU-USUARIO/ondesk.git
-git push -u origin main
-```
-
-El push dispara `.github/workflows/build.yml`, que construye las dos imagenes
-y las publica. Se sigue desde la pestaña **Actions** del repo. La primera vuelta
-tarda bastante; las siguientes reusan cache y son mucho mas rapidas.
-
-Al terminar quedan publicadas, en el **Packages** de tu perfil:
+Imagenes publicadas:
 
 ```
-ghcr.io/<tu-usuario>/ondesk-api:beta
-ghcr.io/<tu-usuario>/ondesk-client:beta
+ghcr.io/thedanthes/ondesk-api:beta
+ghcr.io/thedanthes/ondesk-client:beta
 ```
 
 Ademas de `:beta`, cada build publica una etiqueta con el sha del commit, por si
 hace falta volver a una version anterior.
 
-### 2. Acceso del NAS a las imagenes
+Los dos paquetes estan en **publico**, asi que el NAS los baja sin credenciales.
+La visibilidad del paquete es independiente de la del repositorio: se cambia en
+Packages -> el paquete -> Package settings -> Change package visibility.
 
-Un repositorio privado publica paquetes privados, asi que el NAS necesita
-credenciales. Hay dos caminos.
-
-**Paquetes privados** (el codigo compilado no queda expuesto):
-
-Generar un token en GitHub con permiso `read:packages`
-(Settings -> Developer settings -> Personal access tokens) y en el NAS:
+Si algun dia pasan a privados, el NAS necesita un token con `read:packages`:
 
 ```bash
-sudo docker login ghcr.io -u TU-USUARIO
-# pega el token cuando pida la contraseña
-sudo docker pull ghcr.io/TU-USUARIO/ondesk-api:beta
-sudo docker pull ghcr.io/TU-USUARIO/ondesk-client:beta
+sudo docker login ghcr.io -u TheDanthes
+# pegar el token cuando pida la contraseña
 ```
 
-Se usa `sudo` a proposito: ZimaOS instala las apps como root, y las credenciales
-tienen que quedar en la config de root, no en la de tu usuario. Bajar las
-imagenes a mano antes de importar el YAML evita depender de como resuelve la
-autenticacion el instalador de ZimaOS.
-
-**Paquetes publicos** (mas simple, sin login en el NAS):
-
-En GitHub, Packages -> cada paquete -> Package settings -> Change visibility ->
-Public. El repositorio sigue siendo privado; lo que queda publico es la imagen
-compilada. Con esto el NAS baja sin credenciales y no hay tokens que rotar.
+Se usa `sudo` porque ZimaOS instala las apps como root, y las credenciales
+tienen que quedar en la config de root, no en la del usuario de la sesion.
 
 ## Instalar
 
-1. Abrir `docker-compose.yml` de esta carpeta y reemplazar `TU-USUARIO-GITHUB`
-   por tu usuario de GitHub **en minusculas** (aparece dos veces).
-2. Cambiar `POSTGRES_PASSWORD`, la misma contraseña dentro de `DATABASE_URL`,
-   y `SECRET` (`openssl rand -base64 32`).
+1. Bajar las imagenes a mano en el NAS. Asi el import no depende de como
+   resuelve la descarga el instalador, y un fallo se ve con un error claro:
+
+```bash
+sudo docker pull ghcr.io/thedanthes/ondesk-api:beta
+sudo docker pull ghcr.io/thedanthes/ondesk-client:beta
+sudo docker images | grep ondesk
+```
+
+2. Abrir `docker-compose.yml` de esta carpeta y cambiar `POSTGRES_PASSWORD`, la
+   misma contraseña dentro de `DATABASE_URL`, y `SECRET`
+   (`openssl rand -base64 32`). Los valores del archivo son placeholders: las
+   claves reales no se versionan.
 3. En ZimaOS: **Apps -> + -> Custom Install -> Import**, pegar el YAML, instalar.
 
 Los datos quedan fuera de los contenedores:
@@ -101,11 +86,11 @@ contraseña es publica en el repo de Pepperminto: cambiarla apenas se entra.
 git push
 ```
 
-Cuando Actions termine, en el NAS:
+Cuando el workflow termine (pestaña Actions del repo), en el NAS:
 
 ```bash
-sudo docker pull ghcr.io/TU-USUARIO/ondesk-api:beta
-sudo docker pull ghcr.io/TU-USUARIO/ondesk-client:beta
+sudo docker pull ghcr.io/thedanthes/ondesk-api:beta
+sudo docker pull ghcr.io/thedanthes/ondesk-client:beta
 ```
 
 y reiniciar la app desde ZimaOS. Las migraciones de base de datos corren solas
@@ -116,7 +101,7 @@ al arrancar la API.
 | Puerto | Servicio | Hace falta exponerlo |
 |---|---|---|
 | 3002 | Dashboard (client) | Si, es por donde se entra |
-| 3001 | API | Solo si vas a consumirla desde afuera |
+| 3101 | API (escucha en 3001 dentro del contenedor) | Solo si vas a consumirla desde afuera |
 | 5432 | Postgres | No, queda en la red interna del stack |
 
 Si no necesitas la API desde afuera, borra el bloque `ports` del servicio `api`:
@@ -129,7 +114,10 @@ el dashboard le habla por la red interna del stack.
   servicio `api` en el compose, hay que cambiarlo tambien en el workflow.
 - El workflow compila para `linux/amd64`. Si tu Zima fuera ARM, hay que agregar
   `linux/arm64` en `platforms`.
-- Si Actions no esta disponible, queda `docker-compose.build.yml` como salida de
-  emergencia para construir a mano en cualquier maquina con Docker.
+- Si Actions no esta disponible, se puede construir a mano en cualquier maquina
+  con Docker y BuildKit, desde la raiz del repo:
+  `docker build -f apps/api/Dockerfile -t ondesk/api:beta .` y
+  `docker build -f apps/client/Dockerfile --build-arg API_URL=http://api:3001 -t ondesk/client:beta .`
+  (en ese caso hay que apuntar el compose a esos nombres locales).
 - Los usuarios de cliente no ven nada hasta que tengan al menos una empresa
   asignada (Admin -> Empresas por usuario). Es a proposito: falla cerrado.

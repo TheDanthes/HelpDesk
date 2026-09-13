@@ -4,7 +4,7 @@
 # Las imagenes las construye y publica GitHub Actions en GHCR (.github/workflows/build.yml).
 #
 # ANTES DE INSTALAR:
-#   1. Reemplazar TU-USUARIO-GITHUB por tu usuario de GitHub en minusculas
+#   1. Reemplazar thedanthes por tu usuario de GitHub en minusculas
 #      (aparece dos veces, en los servicios api y client).
 #   2. Cambiar POSTGRES_PASSWORD, la misma contraseña dentro de DATABASE_URL,
 #      y SECRET (generar con: openssl rand -base64 32).
@@ -33,7 +33,7 @@ services:
       - ondesk
 
   api:
-    image: ghcr.io/TU-USUARIO-GITHUB/ondesk-api:beta
+    image: ghcr.io/thedanthes/ondesk-api:beta
     container_name: ondesk-api
     restart: unless-stopped
     depends_on:
@@ -48,12 +48,12 @@ services:
     volumes:
       - /media/ZimaOS-HD/AppData/ondesk/uploads:/app/uploads
     ports:
-      - "3001:3001"
+      - "3101:3001"
     networks:
       - ondesk
 
   client:
-    image: ghcr.io/TU-USUARIO-GITHUB/ondesk-client:beta
+    image: ghcr.io/thedanthes/ondesk-client:beta
     container_name: ondesk-client
     restart: unless-stopped
     depends_on:

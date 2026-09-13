@@ -1,7 +1,12 @@
 # OnDesk
 
-Mesa de ayuda multiempresa, construida sobre
-[Pepperminto](https://github.com/nulldoubt/pepperminto) (a su vez un fork de
+Mesa de ayuda multiempresa de [OnDesk](https://www.ondesk.com.ar).
+
+Repositorio: https://github.com/TheDanthes/HelpDesk
+Imagenes: `ghcr.io/thedanthes/ondesk-api` y `ghcr.io/thedanthes/ondesk-client`
+
+Construida sobre [Pepperminto](https://github.com/nulldoubt/pepperminto)
+(a su vez un fork de
 [Peppermint](https://github.com/Peppermint-Lab/peppermint)).
 
 Un solo login. Cada usuario pertenece a una o varias **empresas** y solo ve los

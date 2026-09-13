@@ -1,17 +1,27 @@
 const { PrismaClient } = require("@prisma/client");
+const { PrismaPg } = require("@prisma/adapter-pg");
+const { Pool } = require("pg");
 const crypto = require("crypto");
 
-const prisma = new PrismaClient();
+// El schema usa driverAdapters, asi que Prisma 7 exige un adaptador: un
+// `new PrismaClient()` pelado tira PrismaClientInitializationError y la semilla
+// no corre, dejando la base migrada pero sin usuario admin ni fila de Config.
+// Tiene que construirse igual que apps/api/src/prisma.ts.
+const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+const adapter = new PrismaPg(pool);
+
+const prisma = new PrismaClient({ adapter });
 
 async function main() {
-  const setup = await prisma.config.findFirst({});
-  const templates = await prisma.emailTemplate.findMany({});
+  // Cada pieza se comprueba por separado. Antes todo colgaba de que `Config`
+  // fuera null: si quedaba media sembrada (config creada pero sin admin, por
+  // ejemplo), la semilla se salteaba todo y no dejaba rastro del problema.
 
-  if (setup === null) {
-    await prisma.user.upsert({
-      where: { email: "admin@admin.com" },
-      update: {},
-      create: {
+  const userCount = await prisma.user.count();
+
+  if (userCount === 0) {
+    await prisma.user.create({
+      data: {
         email: `admin@admin.com`,
         name: "admin",
         isAdmin: true,
@@ -20,40 +30,40 @@ async function main() {
         language: "en",
       },
     });
+    console.log("Usuario admin creado (admin@admin.com / 1234)");
+  } else {
+    console.log(`Ya hay ${userCount} usuario(s): no se crea el admin`);
+  }
 
-    await prisma.client.upsert({
-      where: { email: `internal@admin.com` },
-      update: {},
-      create: {
-        email: `internal@admin.com`,
-        name: "internal",
-        contactName: "admin",
-        number: "123456789",
-        active: true,
-      },
-    });
+  await prisma.client.upsert({
+    where: { email: `internal@admin.com` },
+    update: {},
+    create: {
+      email: `internal@admin.com`,
+      name: "internal",
+      contactName: "admin",
+      number: "123456789",
+      active: true,
+    },
+  });
 
-    const encryptionKey = crypto.randomBytes(32); // Generates a random key
+  const setup = await prisma.config.findFirst({});
 
-    const conf = await prisma.config.create({
+  if (setup === null) {
+    await prisma.config.create({
       data: {
         gh_version: "0.4.3",
         client_version: "0.4.3",
-        encryption_key: encryptionKey,
-      },
-    });
-
-    await prisma.config.update({
-      where: {
-        id: conf.id,
-      },
-      data: {
+        encryption_key: crypto.randomBytes(32),
         first_time_setup: false,
       },
     });
+    console.log("Fila de Config creada");
   } else {
-    console.log("No need to seed, already seeded");
+    console.log("Config ya existe");
   }
+
+  const templates = await prisma.emailTemplate.findMany({});
 
   if (templates.length === 0) {
     await prisma.emailTemplate.createMany({
@@ -193,11 +203,6 @@ async function main() {
                 <tr style="width:100%">
                   <td>
                     <table style="margin-top:8px" align="center" border="0" cellPadding="0" cellSpacing="0" role="presentation" width="100%">
-                      <tbody>
-                        <tr>
-                          <td><img alt="Slack" src="https://raw.githubusercontent.com/nulldoubt/Pepperminto/next/static/black-side-logo.svg" width="200" height="60" style="display:block;outline:none;border:none;text-decoration:none" /></td>
-                        </tr>
-                      </tbody>
                     </table>
                     <h1 style="color:#1d1c1d;font-size:16px;font-weight:700;margin:10px 0;padding:0;line-height:42px">Ticket: {{title}}</h1>
                     <p style="font-size:20px;line-height:28px;margin:4px 0">
