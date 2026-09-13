@@ -11,7 +11,6 @@
     },
     "build": {
       "outputs": ["dist/**", ".next/**"],
-      "// env": "Turbo 2 corre en modo estricto: a la tarea solo le llegan las variables declaradas aca. Sin esta lista, el ENV API_URL del Dockerfile se pierde antes de llegar a next build y el proxy del dashboard queda apuntando a localhost. Declararlas ademas las suma a la clave de cache, asi que cambiar API_URL invalida el build anterior, que es lo que corresponde.",
       "env": [
         "API_URL",
         "BASE_URL",

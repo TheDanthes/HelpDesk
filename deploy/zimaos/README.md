@@ -112,6 +112,16 @@ el dashboard le habla por la red interna del stack.
 - `API_URL` se hornea en el bundle del dashboard **en tiempo de build**, no de
   arranque. Lo pasa el workflow como build-arg. Si cambias el nombre del
   servicio `api` en el compose, hay que cambiarlo tambien en el workflow.
+- Esa variable ademas tiene que estar declarada en el `env` de la tarea `build`
+  de `turbo.json`. Turbo 2 corre en modo de entorno estricto: a cada tarea solo
+  le pasa las variables declaradas, y filtra el resto antes de invocar el
+  comando. Si falta ahi, el `ENV API_URL` del Dockerfile se pierde antes de
+  llegar a `next build`, el proxy queda apuntando a `localhost:3001` y el
+  dashboard responde `Bad Gateway` — sin que el build falle ni avise nada.
+  Lo mismo vale para cualquier variable nueva que se lea en `next.config.js`.
+- `turbo.json` se valida de forma estricta: una clave que Turbo no reconoce
+  (por ejemplo un falso comentario `"// algo"`) hace fallar `turbo prune` y
+  rompe los dos builds. JSON no admite comentarios.
 - El workflow compila para `linux/amd64`. Si tu Zima fuera ARM, hay que agregar
   `linux/arm64` en `platforms`.
 - Si Actions no esta disponible, se puede construir a mano en cualquier maquina
