@@ -1,65 +1,85 @@
 # Desplegar OnDesk en ZimaOS
 
-ZimaOS instala aplicaciones desde un `docker-compose.yml`, pero **no compila
-codigo**: espera imagenes ya construidas. Por eso el despliegue son dos pasos:
-primero se construyen las imagenes por SSH, despues se instala la app desde la
-interfaz web.
+Las imagenes las construye GitHub Actions y quedan publicadas en GHCR. El NAS
+no compila nada: solo baja las imagenes e instala el stack desde la interfaz web.
 
 El stack son tres contenedores: `postgres`, `api` y `client`. No usa Redis.
 
 ---
 
-## 1. Subir el proyecto al ZimaOS
+## Preparacion, una sola vez
 
-Copiar la carpeta del proyecto al NAS, por ejemplo a `/DATA/Projects/ondesk`
-(por Samba, por la app Files de ZimaOS o con `scp`). Tiene que quedar el
-proyecto completo, no solo la carpeta `deploy`: el build necesita el codigo.
-
-## 2. Construir las imagenes (una vez por version)
-
-Por SSH al ZimaOS:
+### 1. Repositorio privado en GitHub
 
 ```bash
-cd /DATA/Projects/ondesk
-docker compose -f deploy/zimaos/docker-compose.build.yml build
+gh repo create ondesk --private --source=. --push
 ```
 
-Tarda varios minutos la primera vez. Al terminar:
+O crear el repo vacio desde la web y despues:
 
 ```bash
-docker images | grep ondesk
-# ondesk/api      beta   ...
-# ondesk/client   beta   ...
+git remote add origin git@github.com:TU-USUARIO/ondesk.git
+git push -u origin main
 ```
 
-Si no aparecen las dos, no sigas: la instalacion del paso 4 va a fallar.
+El push dispara `.github/workflows/build.yml`, que construye las dos imagenes
+y las publica. Se sigue desde la pestaña **Actions** del repo. La primera vuelta
+tarda bastante; las siguientes reusan cache y son mucho mas rapidas.
 
-## 3. Poner las claves
+Al terminar quedan publicadas, en el **Packages** de tu perfil:
 
-Abrir `deploy/zimaos/docker-compose.yml` y cambiar **antes de instalar**:
+```
+ghcr.io/<tu-usuario>/ondesk-api:beta
+ghcr.io/<tu-usuario>/ondesk-client:beta
+```
 
-- `POSTGRES_PASSWORD` y la misma contrasena dentro de `DATABASE_URL`
-- `SECRET`, que firma las sesiones. Generar una propia con:
+Ademas de `:beta`, cada build publica una etiqueta con el sha del commit, por si
+hace falta volver a una version anterior.
+
+### 2. Acceso del NAS a las imagenes
+
+Un repositorio privado publica paquetes privados, asi que el NAS necesita
+credenciales. Hay dos caminos.
+
+**Paquetes privados** (el codigo compilado no queda expuesto):
+
+Generar un token en GitHub con permiso `read:packages`
+(Settings -> Developer settings -> Personal access tokens) y en el NAS:
 
 ```bash
-openssl rand -base64 32
+sudo docker login ghcr.io -u TU-USUARIO
+# pega el token cuando pida la contraseña
+sudo docker pull ghcr.io/TU-USUARIO/ondesk-api:beta
+sudo docker pull ghcr.io/TU-USUARIO/ondesk-client:beta
 ```
 
-Cambiar el `SECRET` mas adelante invalida todas las sesiones abiertas.
+Se usa `sudo` a proposito: ZimaOS instala las apps como root, y las credenciales
+tienen que quedar en la config de root, no en la de tu usuario. Bajar las
+imagenes a mano antes de importar el YAML evita depender de como resuelve la
+autenticacion el instalador de ZimaOS.
 
-## 4. Instalar desde la interfaz web
+**Paquetes publicos** (mas simple, sin login en el NAS):
 
-En ZimaOS: **Apps → + → Custom Install → Import**, pegar el contenido de
-`deploy/zimaos/docker-compose.yml` e instalar.
+En GitHub, Packages -> cada paquete -> Package settings -> Change visibility ->
+Public. El repositorio sigue siendo privado; lo que queda publico es la imagen
+compilada. Con esto el NAS baja sin credenciales y no hay tokens que rotar.
 
-Los datos quedan fuera de los contenedores, en:
+## Instalar
 
-- `/DATA/AppData/ondesk/postgres` — base de datos
-- `/DATA/AppData/ondesk/uploads` — adjuntos de los tickets
+1. Abrir `docker-compose.yml` de esta carpeta y reemplazar `TU-USUARIO-GITHUB`
+   por tu usuario de GitHub **en minusculas** (aparece dos veces).
+2. Cambiar `POSTGRES_PASSWORD`, la misma contraseña dentro de `DATABASE_URL`,
+   y `SECRET` (`openssl rand -base64 32`).
+3. En ZimaOS: **Apps -> + -> Custom Install -> Import**, pegar el YAML, instalar.
+
+Los datos quedan fuera de los contenedores:
+
+- `/media/ZimaOS-HD/AppData/ondesk/postgres` — base de datos
+- `/media/ZimaOS-HD/AppData/ondesk/uploads` — adjuntos de los tickets
 
 Respaldar esas dos carpetas es respaldar OnDesk entero.
 
-## 5. Primer arranque
+## Primer arranque
 
 El dashboard queda en `http://<ip-del-zima>:3002`.
 
@@ -67,23 +87,28 @@ En el primer arranque la API corre sola las migraciones y la semilla; puede
 tardar entre 30 y 60 segundos en responder. Si algo no levanta:
 
 ```bash
-docker logs -f ondesk-api
+sudo docker logs -f ondesk-api
 ```
 
-El primer arranque necesita salida a internet: Prisma puede completar la
-descarga de sus binarios si no quedaron cacheados en la imagen.
+Usuario inicial: `admin@admin.com` / `1234`. Es el que crea la semilla y esa
+contraseña es publica en el repo de Pepperminto: cambiarla apenas se entra.
 
 ---
 
-## Actualizar a una version nueva
+## Actualizar
 
 ```bash
-cd /DATA/Projects/ondesk
-git pull                # o volver a subir los archivos
-docker compose -f deploy/zimaos/docker-compose.build.yml build
+git push
 ```
 
-Y desde ZimaOS, reiniciar la app. Las migraciones de base de datos corren solas
+Cuando Actions termine, en el NAS:
+
+```bash
+sudo docker pull ghcr.io/TU-USUARIO/ondesk-api:beta
+sudo docker pull ghcr.io/TU-USUARIO/ondesk-client:beta
+```
+
+y reiniciar la app desde ZimaOS. Las migraciones de base de datos corren solas
 al arrancar la API.
 
 ## Puertos
@@ -100,7 +125,11 @@ el dashboard le habla por la red interna del stack.
 ## Notas
 
 - `API_URL` se hornea en el bundle del dashboard **en tiempo de build**, no de
-  arranque. Si cambias el nombre del servicio `api` en el compose, hay que
-  volver a construir la imagen del cliente.
+  arranque. Lo pasa el workflow como build-arg. Si cambias el nombre del
+  servicio `api` en el compose, hay que cambiarlo tambien en el workflow.
+- El workflow compila para `linux/amd64`. Si tu Zima fuera ARM, hay que agregar
+  `linux/arm64` en `platforms`.
+- Si Actions no esta disponible, queda `docker-compose.build.yml` como salida de
+  emergencia para construir a mano en cualquier maquina con Docker.
 - Los usuarios de cliente no ven nada hasta que tengan al menos una empresa
-  asignada (Admin → Empresas por usuario). Es a proposito: falla cerrado.
+  asignada (Admin -> Empresas por usuario). Es a proposito: falla cerrado.

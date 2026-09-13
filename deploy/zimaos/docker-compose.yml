@@ -1,10 +1,15 @@
 # OnDesk — stack completo para ZimaOS
 #
 # Este es el YAML que se pega en ZimaOS: Apps -> Custom Install -> Import.
-# Requiere que las imagenes ondesk/api:beta y ondesk/client:beta ya existan
-# en el Docker del ZimaOS (ver docker-compose.build.yml y el README).
+# Las imagenes las construye y publica GitHub Actions en GHCR (.github/workflows/build.yml).
 #
-# Antes de instalar, cambiar ONDESK_SECRET y POSTGRES_PASSWORD mas abajo.
+# ANTES DE INSTALAR:
+#   1. Reemplazar TU-USUARIO-GITHUB por tu usuario de GitHub en minusculas
+#      (aparece dos veces, en los servicios api y client).
+#   2. Cambiar POSTGRES_PASSWORD, la misma contraseña dentro de DATABASE_URL,
+#      y SECRET (generar con: openssl rand -base64 32).
+#   3. Si los paquetes son privados, en el NAS: sudo docker login ghcr.io
+#      y bajar las imagenes con sudo docker pull antes de importar este YAML.
 
 name: ondesk
 
@@ -18,7 +23,7 @@ services:
       POSTGRES_PASSWORD: cambiame_en_produccion
       POSTGRES_DB: ondesk
     volumes:
-      - /DATA/AppData/ondesk/postgres:/var/lib/postgresql/data
+      - /media/ZimaOS-HD/AppData/ondesk/postgres:/var/lib/postgresql/data
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ondesk -d ondesk"]
       interval: 10s
@@ -28,7 +33,7 @@ services:
       - ondesk
 
   api:
-    image: ondesk/api:beta
+    image: ghcr.io/TU-USUARIO-GITHUB/ondesk-api:beta
     container_name: ondesk-api
     restart: unless-stopped
     depends_on:
@@ -36,20 +41,19 @@ services:
         condition: service_healthy
     environment:
       DATABASE_URL: postgresql://ondesk:cambiame_en_produccion@postgres:5432/ondesk
-      # Clave de firma de sesiones, en base64. Generar una propia con:
-      #   openssl rand -base64 32
+      # Clave de firma de sesiones, en base64. Generar con: openssl rand -base64 32
       SECRET: Q0FNQklBTUUtRVNUQS1DTEFWRS1BTlRFUy1ERS1VU0FS
       NODE_ENV: production
     # La API guarda los adjuntos en ./uploads relativo a /app (su working dir).
     volumes:
-      - /DATA/AppData/ondesk/uploads:/app/uploads
+      - /media/ZimaOS-HD/AppData/ondesk/uploads:/app/uploads
     ports:
       - "3001:3001"
     networks:
       - ondesk
 
   client:
-    image: ondesk/client:beta
+    image: ghcr.io/TU-USUARIO-GITHUB/ondesk-client:beta
     container_name: ondesk-client
     restart: unless-stopped
     depends_on:
@@ -68,7 +72,6 @@ networks:
 x-casaos:
   architectures:
     - amd64
-    - arm64
   main: client
   author: OnDesk
   developer: OnDesk
@@ -77,10 +80,8 @@ x-casaos:
     en_us: OnDesk
   description:
     en_us: Mesa de ayuda multiempresa. Cada usuario ve solo los tickets de las empresas que tiene asignadas.
-    es_es: Mesa de ayuda multiempresa. Cada usuario ve solo los tickets de las empresas que tiene asignadas.
   tagline:
     en_us: Tickets por empresa
-    es_es: Tickets por empresa
   scheme: http
   port_map: "3002"
   index: /
