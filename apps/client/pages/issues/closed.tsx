@@ -211,8 +211,8 @@ export default function Tickets() {
       .then((res) => res.json())
       .then(() => {
         toast({
-          title: ticket.isComplete ? "Issue re-opened" : "Issue closed",
-          description: "The status of the issue has been updated.",
+          title: ticket.isComplete ? "Ticket reabierto" : "Ticket cerrado",
+          description: "Se actualizó el estado del ticket.",
           duration: 3000,
         });
         refetch();
@@ -237,15 +237,15 @@ export default function Tickets() {
       if (!response.ok) throw new Error("Failed to update assignee");
 
       toast({
-        title: "Assignee updated",
-        description: `Transferred issue successfully`,
+        title: "Responsable actualizado",
+        description: `El ticket se transfirió correctamente`,
         duration: 3000,
       });
       refetch();
     } catch (error) {
       toast({
         title: "Error",
-        description: "Failed to update assignee",
+        description: "No se pudo actualizar el responsable",
         variant: "destructive",
         duration: 3000,
       });
@@ -273,15 +273,15 @@ export default function Tickets() {
       if (!response.success) throw new Error("Failed to update priority");
 
       toast({
-        title: "Priority updated",
-        description: `Ticket priority set to ${priority}`,
+        title: "Prioridad actualizada",
+        description: `La prioridad del ticket se cambió a ${priority}`,
         duration: 3000,
       });
       refetch();
     } catch (error) {
       toast({
         title: "Error",
-        description: "Failed to update priority",
+        description: "No se pudo actualizar la prioridad",
         variant: "destructive",
         duration: 3000,
       });
@@ -313,30 +313,30 @@ export default function Tickets() {
                       className="h-6 bg-transparent"
                     >
                       <Filter className="mr-2 h-4 w-4" />
-                      <span className="hidden sm:block">Filters</span>
+                      <span className="hidden sm:block">Filtros</span>
                     </Button>
                   </PopoverTrigger>
                   <PopoverContent className="w-[300px] p-0" align="start">
                     {!activeFilter ? (
                       <Command>
-                        <CommandInput placeholder="Search filters..." />
+                        <CommandInput placeholder="Buscar filtros..." />
                         <CommandList>
-                          <CommandEmpty>No results found.</CommandEmpty>
+                          <CommandEmpty>No se encontraron resultados.</CommandEmpty>
                           <CommandGroup>
                             <CommandItem
                               onSelect={() => setActiveFilter("priority")}
                             >
-                              Priority
+                              Prioridad
                             </CommandItem>
                             <CommandItem
                               onSelect={() => setActiveFilter("status")}
                             >
-                              Status
+                              Estado
                             </CommandItem>
                             <CommandItem
                               onSelect={() => setActiveFilter("assignee")}
                             >
-                              Assigned To
+                              Asignado a
                             </CommandItem>
                           </CommandGroup>
                         </CommandList>
@@ -344,13 +344,13 @@ export default function Tickets() {
                     ) : activeFilter === "priority" ? (
                       <Command>
                         <CommandInput
-                          placeholder="Search priority..."
+                          placeholder="Buscar prioridad..."
                           value={filterSearch}
                           onValueChange={setFilterSearch}
                         />
                         <CommandList>
-                          <CommandEmpty>No priorities found.</CommandEmpty>
-                          <CommandGroup heading="Priority">
+                          <CommandEmpty>No se encontraron prioridades.</CommandEmpty>
+                          <CommandGroup heading="Prioridad">
                             {filteredPriorities.map((priority) => (
                               <CommandItem
                                 key={priority}
@@ -379,7 +379,7 @@ export default function Tickets() {
                               }}
                               className="justify-center text-center"
                             >
-                              Back to filters
+                              Volver a los filtros
                             </CommandItem>
                           </CommandGroup>
                         </CommandList>
@@ -387,13 +387,13 @@ export default function Tickets() {
                     ) : activeFilter === "status" ? (
                       <Command>
                         <CommandInput
-                          placeholder="Search status..."
+                          placeholder="Buscar estado..."
                           value={filterSearch}
                           onValueChange={setFilterSearch}
                         />
                         <CommandList>
-                          <CommandEmpty>No statuses found.</CommandEmpty>
-                          <CommandGroup heading="Status">
+                          <CommandEmpty>No se encontraron estados.</CommandEmpty>
+                          <CommandGroup heading="Estado">
                             {filteredStatuses.map((status) => (
                               <CommandItem
                                 key={status}
@@ -422,7 +422,7 @@ export default function Tickets() {
                               }}
                               className="justify-center text-center"
                             >
-                              Back to filters
+                              Volver a los filtros
                             </CommandItem>
                           </CommandGroup>
                         </CommandList>
@@ -430,13 +430,13 @@ export default function Tickets() {
                     ) : activeFilter === "assignee" ? (
                       <Command>
                         <CommandInput
-                          placeholder="Search assignee..."
+                          placeholder="Buscar responsable..."
                           value={filterSearch}
                           onValueChange={setFilterSearch}
                         />
                         <CommandList>
-                          <CommandEmpty>No assignees found.</CommandEmpty>
-                          <CommandGroup heading="Assigned To">
+                          <CommandEmpty>No se encontraron responsables.</CommandEmpty>
+                          <CommandGroup heading="Asignado a">
                             {filteredAssignees?.map((name) => (
                               <CommandItem
                                 key={name}
@@ -465,7 +465,7 @@ export default function Tickets() {
                               }}
                               className="justify-center text-center"
                             >
-                              Back to filters
+                              Volver a los filtros
                             </CommandItem>
                           </CommandGroup>
                         </CommandList>
@@ -479,7 +479,7 @@ export default function Tickets() {
                   {selectedPriorities.map((priority) => (
                     <FilterBadge
                       key={`priority-${priority}`}
-                      text={`Priority: ${priority}`}
+                      text={`Prioridad: ${priority}`}
                       onRemove={() => handlePriorityToggle(priority)}
                     />
                   ))}
@@ -487,7 +487,7 @@ export default function Tickets() {
                   {selectedStatuses.map((status) => (
                     <FilterBadge
                       key={`status-${status}`}
-                      text={`Status: ${status}`}
+                      text={`Estado: ${status}`}
                       onRemove={() => handleStatusToggle(status)}
                     />
                   ))}
@@ -495,7 +495,7 @@ export default function Tickets() {
                   {selectedAssignees.map((assignee) => (
                     <FilterBadge
                       key={`assignee-${assignee}`}
-                      text={`Assignee: ${assignee}`}
+                      text={`Responsable: ${assignee}`}
                       onRemove={() => handleAssigneeToggle(assignee)}
                     />
                   ))}
@@ -514,7 +514,7 @@ export default function Tickets() {
                         setSelectedAssignees([]);
                       }}
                     >
-                      Clear all
+                      Limpiar todo
                     </Button>
                   )}
                 </div>
@@ -613,16 +613,16 @@ export default function Tickets() {
                       <ContextMenuItem
                         onClick={(e) => updateTicketStatus(e, ticket)}
                       >
-                        {ticket.isComplete ? "Re-open Issue" : "Close Issue"}
+                        {ticket.isComplete ? "Reabrir ticket" : "Cerrar ticket"}
                       </ContextMenuItem>
                       <ContextMenuSeparator />
 
                       <ContextMenuSub>
-                        <ContextMenuSubTrigger>Assign To</ContextMenuSubTrigger>
+                        <ContextMenuSubTrigger>Asignar a</ContextMenuSubTrigger>
                         <ContextMenuSubContent className="w-64 ml-1 -mt-1/2">
                           <Command>
                             <CommandList>
-                              <CommandGroup heading="Assigned To">
+                              <CommandGroup heading="Asignado a">
                                 <CommandItem
                                   onSelect={() =>
                                     updateTicketAssignee(ticket.id, undefined)
@@ -638,7 +638,7 @@ export default function Tickets() {
                                   >
                                     <CheckIcon className={cn("h-4 w-4")} />
                                   </div>
-                                  <span>Unassigned</span>
+                                  <span>Sin asignar</span>
                                 </CommandItem>
                                 {users?.map((user) => (
                                   <CommandItem
@@ -668,12 +668,12 @@ export default function Tickets() {
 
                       <ContextMenuSub>
                         <ContextMenuSubTrigger>
-                          Change Priority
+                          Cambiar prioridad
                         </ContextMenuSubTrigger>
                         <ContextMenuSubContent className="w-64 ml-1">
                           <Command>
                             <CommandList>
-                              <CommandGroup heading="Priority">
+                              <CommandGroup heading="Prioridad">
                                 {filteredPriorities.map((priority) => (
                                   <CommandItem
                                     key={priority}
@@ -709,9 +709,9 @@ export default function Tickets() {
                         onClick={(e) => {
                           e.preventDefault();
                           toast({
-                            title: "Link copied to clipboard",
+                            title: "Enlace copiado al portapapeles",
                             description:
-                              "You can now share the link with others.",
+                              "Ya podés compartirlo con otras personas.",
                             duration: 3000,
                           });
                           navigator.clipboard.writeText(
@@ -719,7 +719,7 @@ export default function Tickets() {
                           );
                         }}
                       >
-                        Share Link
+                        Compartir enlace
                       </ContextMenuItem>
 
                       {user.isAdmin && (
@@ -732,7 +732,7 @@ export default function Tickets() {
                               e.preventDefault();
                               if (
                                 confirm(
-                                  "Are you sure you want to delete this ticket?"
+                                  "¿Seguro que querés eliminar este ticket?"
                                 )
                               ) {
                                 fetch(`/api/v1/ticket/delete`, {
@@ -748,7 +748,7 @@ export default function Tickets() {
                               }
                             }}
                           >
-                            Delete Ticket
+                            Eliminar ticket
                           </ContextMenuItem>
                         </>
                       )}
@@ -781,7 +781,7 @@ export default function Tickets() {
                     />
                   </svg>
                   <span className="mt-2 block text-sm font-semibold text-foreground">
-                    Create your first issue
+                    Creá tu primer ticket
                   </span>
                 </button>
               </div>

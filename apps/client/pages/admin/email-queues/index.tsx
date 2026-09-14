@@ -49,16 +49,16 @@ export default function EmailQueues() {
           <div className="pt-10 pb-16 divide-y-2">
             <div className="px-4 sm:px-6 md:px-0">
               <h1 className="text-3xl font-extrabold text-gray-900  dark:text-white">
-                Email Queues
+                Colas de correo
               </h1>
             </div>
             <div className="px-4 sm:px-6 md:px-0">
               <div className="sm:flex sm:items-center">
                 <div className="sm:flex-auto mt-4">
                   <p className="mt-2 text-sm text-gray-700  dark:text-white">
-                    A list of the mailboxes you are listening to, these will
-                    automatically create tickets and can be accessed down the
-                    side navigation.
+                    Lista de las casillas de correo que estás monitoreando.
+                    Crean tickets automáticamente y podés acceder a ellas desde
+                    el menú lateral.
                   </p>
                 </div>
                 <div className="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
@@ -66,7 +66,7 @@ export default function EmailQueues() {
                     href="/admin/email-queues/new"
                     className="rounded bg-white px-4 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
                   >
-                    New Queue
+                    Nueva cola
                   </Link>
                 </div>
               </div>
@@ -76,16 +76,16 @@ export default function EmailQueues() {
                     <TableHeader>
                       <TableRow>
                         <TableHead className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0">
-                          Name
+                          Nombre
                         </TableHead>
                         <TableHead className="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 lg:table-cell">
-                          Email/Username
+                          Correo/Usuario
                         </TableHead>
                         <TableHead className="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 sm:table-cell">
-                          Hostname
+                          Servidor
                         </TableHead>
                         <TableHead className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                          Port
+                          Puerto
                         </TableHead>
                         <TableHead className="px-3 py-3.5 text-right text-sm font-semibold text-gray-900" />
                       </TableRow>
@@ -96,11 +96,11 @@ export default function EmailQueues() {
                           <TableCell className="w-full max-w-0 py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:w-auto sm:max-w-none sm:pl-0">
                             {item.name}
                             <dl className="font-normal lg:hidden">
-                              <dt className="sr-only">Title</dt>
+                              <dt className="sr-only">Título</dt>
                               <dd className="mt-1 truncate text-gray-700">
                                 {item.username}
                               </dd>
-                              <dt className="sr-only sm:hidden">Email</dt>
+                              <dt className="sr-only sm:hidden">Correo</dt>
                               <dd className="mt-1 truncate  sm:hidden">
                                 {item.hostname}
                               </dd>
@@ -121,7 +121,7 @@ export default function EmailQueues() {
                               onClick={() => deleteItem(item.id)}
                               className="rounded bg-red-600 py-1 px-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600"
                             >
-                              Delete
+                              Eliminar
                             </button>
                           </TableCell>
                         </TableRow>

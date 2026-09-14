@@ -1,4 +1,5 @@
 import { draggable } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
+import { etiquetaPrioridad, etiquetaTipo } from "@/shadcn/lib/labels";
 import moment from 'moment';
 import Link from 'next/link';
 import { KanbanColumn, UISettings } from '../../types/tickets';
@@ -46,13 +47,17 @@ export default function TicketKanban({ columns, uiSettings }: TicketKanbanProps)
                         {uiSettings.showTicketNumbers && (
                           <span className="text-xs text-gray-500 flex-shrink-0">#{ticket.Number}</span>
                         )}
-                        <Link 
+                        <Link
                           href={`/issue/${ticket.id}`}
                           className="text-sm font-medium hover:underline truncate"
                         >
                           {ticket.title}
                         </Link>
                       </div>
+                      {/* De que empresa es, igual que en la vista de lista */}
+                      <span className="text-[11px] text-gray-500 dark:text-gray-400 truncate max-w-[110px] flex-shrink-0">
+                        {ticket.client ? ticket.client.name : "sin empresa"}
+                      </span>
                       {uiSettings.showAvatars && ticket.assignedTo && (
                         <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-gray-500 flex-shrink-0">
                           <span className="text-[11px] font-medium leading-none text-white uppercase">
@@ -71,7 +76,7 @@ export default function TicketKanban({ columns, uiSettings }: TicketKanbanProps)
                       
                       {uiSettings.showType && (
                         <span className="inline-flex items-center rounded-md px-2 py-1 text-xs font-medium capitalize bg-orange-400 text-white flex-shrink-0">
-                          {ticket.type}
+                          {etiquetaTipo(ticket.type)}
                         </span>
                       )}
                       
@@ -81,7 +86,7 @@ export default function TicketKanban({ columns, uiSettings }: TicketKanbanProps)
                             ticket.priority.toLowerCase() === 'normal' ? 'bg-green-100 text-green-800' : 
                             'bg-blue-100 text-blue-800'}`}
                         >
-                          {ticket.priority}
+                          {etiquetaPrioridad(ticket.priority)}
                         </span>
                       )}
                     </div>

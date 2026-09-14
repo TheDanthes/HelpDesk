@@ -48,7 +48,7 @@ function DefaultColumnFilter({ column }: any) {
       onChange={(e) => {
         column.setFilterValue(e.target.value || undefined);
       }}
-      placeholder="Type to filter"
+      placeholder="Escribí para filtrar"
     />
   );
 }
@@ -139,12 +139,12 @@ function ClientsTable({ columns, data }: any) {
           {data.length > 10 && (
             <nav
               className="flex items-center justify-between border-t border-border/60 bg-card/70 px-4 py-3 sm:px-6"
-              aria-label="Pagination"
+              aria-label="Paginación"
             >
               <div className="hidden sm:block">
                 <div className="flex flex-row flex-nowrap w-full space-x-2">
                   <p className="block text-sm font-medium text-muted-foreground mt-4">
-                    Show
+                    Mostrar
                   </p>
                   <Select
                     value={`${table.getState().pagination.pageSize}`}
@@ -153,7 +153,7 @@ function ClientsTable({ columns, data }: any) {
                     }}
                   >
                     <SelectTrigger className="bg-background/60">
-                      <SelectValue placeholder="Page size" />
+                      <SelectValue placeholder="Tamaño de página" />
                     </SelectTrigger>
                     <SelectContent>
                       {[10, 20, 30, 40, 50].map((pageSize) => (
@@ -173,7 +173,7 @@ function ClientsTable({ columns, data }: any) {
                   onClick={() => table.previousPage()}
                   disabled={!table.getCanPreviousPage()}
                 >
-                  Previous
+                  Anterior
                 </Button>
                 <Button
                   variant="outline"
@@ -183,7 +183,7 @@ function ClientsTable({ columns, data }: any) {
                   onClick={() => table.nextPage()}
                   disabled={!table.getCanNextPage()}
                 >
-                  Next
+                  Siguiente
                 </Button>
               </div>
             </nav>
@@ -218,12 +218,12 @@ export default function Clients() {
   const columns = React.useMemo(
     () => [
       {
-        header: "Client Name",
+        header: "Nombre del cliente",
         accessorKey: "name",
         id: "client_name",
       },
       {
-        header: "Contact Name",
+        header: "Nombre de contacto",
         accessorKey: "contactName",
         id: "contactName",
       },
@@ -240,7 +240,7 @@ export default function Clients() {
                 className="rounded-md border border-destructive/50 bg-background/70 px-2.5 py-1.5 text-xs font-semibold text-destructive shadow-sm hover:bg-destructive/10"
                 onClick={() => deleteClient(row.original.id)}
               >
-                Delete
+                Eliminar
               </button>
             </div>
           );
@@ -256,14 +256,14 @@ export default function Clients() {
         <div className="pt-10 pb-16 divide-y-2">
           <div className="px-4 sm:px-6 md:px-0">
             <h1 className="text-3xl font-extrabold text-gray-900  dark:text-white">
-              Clients
+              Clientes
             </h1>
           </div>
           <div className="px-4 sm:px-6 md:px-0">
             <div className="sm:flex sm:items-center">
               <div className="sm:flex-auto mt-4">
                 <p className="mt-2 text-sm text-gray-700  dark:text-white">
-                  A list of all internal users of your instance.
+                  Lista de todos los clientes de tu instancia.
                 </p>
               </div>
               <div className="sm:ml-16 mt-5 flex flex-row space-x-2">
@@ -272,34 +272,34 @@ export default function Clients() {
                   type="button"
                   className="inline-flex items-center px-2.5 py-1.5 border font-semibold border-gray-300 shadow-sm text-xs rounded text-gray-700 bg-white hover:bg-gray-50 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 >
-                  Guest Ticket Url
+                  URL de ticket para invitados
                 </Link>
                 <Link
                   href={`/portal/`}
                   type="button"
                   className="inline-flex items-center px-2.5 py-1.5 border font-semibold border-gray-300 shadow-sm text-xs rounded text-gray-700 bg-white hover:bg-gray-50 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 >
-                  Portal Url
+                  URL del portal
                 </Link>
                 <Link
                   href={`/auth/register`}
                   type="button"
                   className="inline-flex items-center px-2.5 py-1.5 border font-semibold border-gray-300 shadow-sm text-xs rounded text-gray-700 bg-white hover:bg-gray-50 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 >
-                  Portal Register
+                  Registro en el portal
                 </Link>
                 <Link
                   href="/admin/clients/new"
                   className="rounded bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
                 >
-                  New Client
+                  Nuevo cliente
                 </Link>
               </div>
             </div>
             <div className="py-4">
               {isLoading && (
                 <div className="min-h-screen flex flex-col justify-center items-center py-12 sm:px-6 lg:px-8">
-                  <h2> Loading data ... </h2>
+                  <h2> Cargando datos ... </h2>
                 </div>
               )}
 
@@ -307,7 +307,7 @@ export default function Clients() {
                 <div className="min-h-screen flex flex-col justify-center items-center py-12 sm:px-6 lg:px-8">
                   <h2 className="text-2xl font-bold">
                     {" "}
-                    Error fetching data ...{" "}
+                    Error al obtener los datos ...{" "}
                   </h2>
                 </div>
               )}
@@ -332,10 +332,10 @@ export default function Clients() {
                             <dd className="text-gray-500 text-sm">
                               {client.number}
                             </dd>
-                            <dt className="sr-only">Role</dt>
+                            <dt className="sr-only">Rol</dt>
                             <dd className="mt-3">
                               <span>
-                                Primary Contact - {client.contactName}
+                                Contacto principal - {client.contactName}
                               </span>
                             </dd>
                           </dl>

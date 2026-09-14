@@ -8,14 +8,14 @@ export default function BlankPage() {
           </div>
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">
-              Admin Console
+              Consola de administración
             </p>
             <h1 className="text-3xl font-semibold text-foreground">
-              Welcome to Pepperminto
+              Bienvenido a OnDesk
             </h1>
             <p className="mt-2 text-sm text-muted-foreground">
-              Manage teams, tickets, and settings while keeping the support
-              experience smooth.
+              Administrá equipos, tickets y configuración para que la mesa de
+              ayuda funcione sin sobresaltos.
             </p>
           </div>
         </div>
@@ -24,20 +24,20 @@ export default function BlankPage() {
       <div className="grid gap-4 md:grid-cols-2">
         {[
           {
-            title: "Manage Knowledge Base",
-            detail: "Publish help articles and keep customers informed.",
+            title: "Administrar la base de conocimiento",
+            detail: "Publicá artículos de ayuda y mantené informados a los clientes.",
           },
           {
-            title: "Audit Activity",
-            detail: "Review logs and security events in one place.",
+            title: "Auditar la actividad",
+            detail: "Revisá los registros y los eventos de seguridad en un solo lugar.",
           },
           {
-            title: "Update Settings",
-            detail: "Tune email, authentication, and webhook integrations.",
+            title: "Actualizar la configuración",
+            detail: "Ajustá el correo, la autenticación y las integraciones por webhook.",
           },
           {
-            title: "Invite Your Team",
-            detail: "Add agents, assign roles, and organize workflows.",
+            title: "Invitar a tu equipo",
+            detail: "Sumá agentes, asigná roles y organizá los flujos de trabajo.",
           },
         ].map((card) => (
           <div

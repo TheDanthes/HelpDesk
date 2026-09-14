@@ -92,7 +92,7 @@ export default function KnowledgeBaseAdmin() {
       setMode("list");
       resetForm();
     } else {
-      alert(data.message || "Unable to save article");
+      alert(data.message || "No se pudo guardar el artículo");
     }
   }
 
@@ -108,7 +108,7 @@ export default function KnowledgeBaseAdmin() {
     if (data.success) {
       await refetch();
     } else {
-      alert(data.message || "Unable to delete article");
+      alert(data.message || "No se pudo eliminar el artículo");
     }
   }
 
@@ -118,10 +118,10 @@ export default function KnowledgeBaseAdmin() {
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div>
             <h1 className="text-3xl font-extrabold text-foreground">
-              Knowledge Base
+              Base de conocimiento
             </h1>
             <p className="mt-2 text-sm text-muted-foreground">
-              Create and publish help center articles for customers.
+              Creá y publicá artículos del centro de ayuda para los clientes.
             </p>
           </div>
           <div className="flex gap-2">
@@ -129,7 +129,7 @@ export default function KnowledgeBaseAdmin() {
               <Button
                 onClick={() => setMode("edit")}
               >
-                New Article
+                Nuevo artículo
               </Button>
             ) : (
               <Button
@@ -139,7 +139,7 @@ export default function KnowledgeBaseAdmin() {
                 }}
                 variant="outline"
               >
-                Back to list
+                Volver a la lista
               </Button>
             )}
           </div>
@@ -149,7 +149,7 @@ export default function KnowledgeBaseAdmin() {
           <div className="mt-8 space-y-4">
             {articles.length === 0 ? (
               <div className="rounded-2xl border border-border/60 bg-card/70 p-6 text-foreground shadow-sm backdrop-blur">
-                No knowledge base entries yet.
+                Todavía no hay artículos en la base de conocimiento.
               </div>
             ) : (
               articles.map((article: any) => (
@@ -165,21 +165,21 @@ export default function KnowledgeBaseAdmin() {
                       {article.author} • {article.slug}
                     </p>
                     <p className="mt-1 text-xs uppercase tracking-wide text-muted-foreground">
-                      {article.public ? "Published" : "Draft"} •{" "}
-                      {formatTags(article.tags) || "No tags"}
+                      {article.public ? "Publicado" : "Borrador"} •{" "}
+                      {formatTags(article.tags) || "Sin etiquetas"}
                     </p>
                   </div>
                   <div className="flex gap-2">
                     <Button
                       onClick={() => editArticle(article)}
                     >
-                      Edit
+                      Editar
                     </Button>
                     <Button
                       onClick={() => deleteArticle(article.id)}
                       variant="destructive"
                     >
-                      Delete
+                      Eliminar
                     </Button>
                   </div>
                 </div>
@@ -193,13 +193,13 @@ export default function KnowledgeBaseAdmin() {
             <div className="grid gap-6">
               <div>
                 <Label className="text-sm text-foreground">
-                  Title
+                  Título
                 </Label>
                 <Input
                   value={title}
                   onChange={(event) => setTitle(event.target.value)}
                   className="mt-2 bg-background/60"
-                  placeholder="New article title"
+                  placeholder="Título del nuevo artículo"
                 />
               </div>
 
@@ -211,44 +211,44 @@ export default function KnowledgeBaseAdmin() {
                   value={slug}
                   onChange={(event) => setSlug(event.target.value)}
                   className="mt-2 bg-background/60"
-                  placeholder="optional-custom-slug"
+                  placeholder="slug-personalizado-opcional"
                 />
               </div>
 
               <div className="grid gap-6 md:grid-cols-2">
                 <div>
                   <Label className="text-sm text-foreground">
-                    Author
+                    Autor
                   </Label>
                   <Input
                     value={author}
                     onChange={(event) => setAuthor(event.target.value)}
                     className="mt-2 bg-background/60"
-                    placeholder="Author name"
+                    placeholder="Nombre del autor"
                   />
                 </div>
                 <div>
                   <Label className="text-sm text-foreground">
-                    Tags (CSV)
+                    Etiquetas (separadas por comas)
                   </Label>
                   <Input
                     value={tags}
                     onChange={(event) => setTags(event.target.value)}
                     className="mt-2 bg-background/60"
-                    placeholder="install, email, sso"
+                    placeholder="instalación, correo, sso"
                   />
                 </div>
               </div>
 
               <div>
                 <Label className="text-sm text-foreground">
-                  Body
+                  Contenido
                 </Label>
                 <Textarea
                   value={body}
                   onChange={(event) => setBody(event.target.value)}
                   className="mt-2 h-48 bg-background/60"
-                  placeholder="Write the article content here..."
+                  placeholder="Escribí el contenido del artículo acá..."
                 />
               </div>
 
@@ -257,14 +257,14 @@ export default function KnowledgeBaseAdmin() {
                   checked={published}
                   onCheckedChange={(checked) => setPublished(Boolean(checked))}
                 />
-                Publish immediately
+                Publicar de inmediato
               </Label>
 
               <div className="flex gap-3">
                 <Button
                   onClick={saveArticle}
                 >
-                  {activeId ? "Update Article" : "Create Article"}
+                  {activeId ? "Actualizar artículo" : "Crear artículo"}
                 </Button>
                 <Button
                   onClick={() => {
@@ -273,7 +273,7 @@ export default function KnowledgeBaseAdmin() {
                   }}
                   variant="outline"
                 >
-                  Cancel
+                  Cancelar
                 </Button>
               </div>
             </div>

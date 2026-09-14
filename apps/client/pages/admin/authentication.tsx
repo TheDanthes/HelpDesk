@@ -146,7 +146,7 @@ export default function Authentication() {
         <div className="pt-10 pb-16">
           <div className="px-4 sm:px-6 md:px-0">
             <h1 className="text-3xl font-extrabold text-foreground ">
-              Authentication Settings
+              Configuración de autenticación
             </h1>
           </div>
           <div className="px-4 sm:px-6 md:px-0 my-4">
@@ -155,10 +155,10 @@ export default function Authentication() {
                 <Card className={cn("w-[380px]")}>
                   <CardHeader>
                     <CardTitle className="capitalize">
-                      {provider} settings
+                      Configuración de {provider}
                     </CardTitle>
                     <CardDescription>
-                      Manage your {provider} config
+                      Administrá la configuración de {provider}
                     </CardDescription>
                   </CardHeader>
                   <CardContent className="grid gap-4"></CardContent>
@@ -166,24 +166,24 @@ export default function Authentication() {
                     <AlertDialog>
                       <AlertDialogTrigger asChild>
                         <Button className="w-full bg-red-500">
-                          <Check className="mr-2 h-4 w-4" /> delete
+                          <Check className="mr-2 h-4 w-4" /> Eliminar
                         </Button>
                       </AlertDialogTrigger>
                       <AlertDialogContent>
                         <AlertDialogHeader>
                           <AlertDialogTitle>
-                            Are you absolutely sure?
+                            ¿Estás completamente seguro?
                           </AlertDialogTitle>
                           <AlertDialogDescription>
-                            This action cannot be undone. This will permanently
-                            delete your account and remove your data from our
-                            servers.
+                            Esta acción no se puede deshacer. Se eliminará de
+                            forma permanente tu cuenta y se borrarán tus datos
+                            de nuestros servidores.
                           </AlertDialogDescription>
                         </AlertDialogHeader>
                         <AlertDialogFooter>
-                          <AlertDialogCancel>Cancel</AlertDialogCancel>
+                          <AlertDialogCancel>Cancelar</AlertDialogCancel>
                           <AlertDialogAction onClick={() => deleteData()}>
-                            Continue
+                            Continuar
                           </AlertDialogAction>
                         </AlertDialogFooter>
                       </AlertDialogContent>
@@ -199,7 +199,7 @@ export default function Authentication() {
                     onValueChange={setProviderType}
                   >
                     <SelectTrigger className="mt-2 bg-background/60">
-                      <SelectValue placeholder="Please select a provider type" />
+                      <SelectValue placeholder="Seleccioná un tipo de proveedor" />
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="oidc">OIDC</SelectItem>
@@ -207,7 +207,7 @@ export default function Authentication() {
                         OAuth
                       </SelectItem>
                       <SelectItem value="saml" disabled>
-                        SAML - coming soon
+                        SAML - próximamente
                       </SelectItem>
                     </SelectContent>
                   </Select>
@@ -215,13 +215,13 @@ export default function Authentication() {
                 {providerType && (
                   <div className="space-y-4 mt-4">
                     <h2 className="text-base font-semibold leading-7 text-foreground">
-                      {providerType.toUpperCase()} Settings
+                      Configuración de {providerType.toUpperCase()}
                     </h2>
                     {providerType === "oidc" && (
                       <>
                         <div>
                           <Label htmlFor="issuer" className="text-sm text-foreground">
-                            Issuer
+                            Emisor
                           </Label>
                           <Input
                             type="text"
@@ -232,7 +232,7 @@ export default function Authentication() {
                         </div>
                         <div>
                           <Label htmlFor="clientId" className="text-sm text-foreground">
-                            Client Id
+                            ID de cliente
                           </Label>
                           <Input
                             type="text"
@@ -247,7 +247,7 @@ export default function Authentication() {
                             htmlFor="redirectUri"
                             className="text-sm text-foreground"
                           >
-                            Redirect URI
+                            URI de redirección
                           </Label>
                           <Input
                             type="text"
@@ -264,7 +264,7 @@ export default function Authentication() {
                         <div className="space-y-4 mt-2">
                           <div>
                             <Label htmlFor="oauthClientId" className="text-sm text-foreground">
-                              Client Id
+                              ID de cliente
                             </Label>
                             <Input
                               type="text"
@@ -278,7 +278,7 @@ export default function Authentication() {
                               htmlFor="oauthClientSecret"
                               className="text-sm text-foreground"
                             >
-                              Client Secret
+                              Secreto de cliente
                             </Label>
                             <Input
                               type="text"
@@ -293,7 +293,7 @@ export default function Authentication() {
                               htmlFor="oauthRedirectUri"
                               className="text-sm text-foreground"
                             >
-                              Redirect URI
+                              URI de redirección
                             </Label>
                             <Input
                               type="text"
@@ -327,7 +327,7 @@ export default function Authentication() {
                         type="submit"
                         onClick={() => postData()}
                       >
-                        Save
+                        Guardar
                       </Button>
                     </div>
                   </div>

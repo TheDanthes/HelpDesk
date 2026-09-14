@@ -31,14 +31,15 @@ export default function EmailQueues() {
           <div className="divide-y-2">
             <div className="px-4 sm:px-6 md:px-0">
               <h1 className="text-3xl font-extrabold text-foreground">
-                New Email Queue
+                Nueva cola de correo
               </h1>
             </div>
             <div className="px-4 sm:px-6 md:px-0">
               <div className="sm:flex sm:items-center mt-4">
                 <div className="sm:flex-auto">
                   <p className="mt-2 text-sm text-foreground-muted">
-                    Configure a new email queue for sending outbound emails.
+                    Configurá una nueva cola de correo para el envío de
+                    mensajes salientes.
                   </p>
                 </div>
               </div>
@@ -51,34 +52,34 @@ export default function EmailQueues() {
             {step === 0 && (
               <Card className="w-[480px]">
                 <CardHeader>
-                  <CardTitle>Email Provider</CardTitle>
+                  <CardTitle>Proveedor de correo</CardTitle>
                   <CardDescription>
-                    Certain providers require different settings.
+                    Algunos proveedores requieren una configuración distinta.
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
                   <div className="grid w-full items-center gap-4">
                     <div className="flex flex-col space-y-1.5">
-                      <Label htmlFor="framework">Provider</Label>
+                      <Label htmlFor="framework">Proveedor</Label>
                       <Select onValueChange={(value) => setProvider(value)}>
                         <SelectTrigger id="framework">
-                          <SelectValue placeholder="Select" />
+                          <SelectValue placeholder="Seleccionar" />
                         </SelectTrigger>
                         <SelectContent position="popper">
                           <SelectItem disabled value="microsoft">
                             Microsoft
                           </SelectItem>
                           <SelectItem value="gmail">Google</SelectItem>
-                          <SelectItem value="other">Other</SelectItem>
+                          <SelectItem value="other">Otro</SelectItem>
                         </SelectContent>
                       </Select>
                     </div>
                   </div>
                 </CardContent>
                 <CardFooter className="flex justify-between">
-                  <Button variant="outline">Cancel</Button>
+                  <Button variant="outline">Cancelar</Button>
                   <Button disabled={provider === ""} onClick={() => setStep(1)}>
-                    Next
+                    Siguiente
                   </Button>
                 </CardFooter>
               </Card>
@@ -131,43 +132,43 @@ function PasswordProvider({ setStep }: any) {
   return (
     <Card className="w-[480px]">
       <CardHeader>
-        <CardTitle>Email Queue Settings</CardTitle>
-        <CardDescription>Configure your email queue settings.</CardDescription>
+        <CardTitle>Configuración de la cola de correo</CardTitle>
+        <CardDescription>Configurá los datos de tu cola de correo.</CardDescription>
       </CardHeader>
       <CardContent>
         <div className="grid w-full items-center gap-4">
           <div className="flex flex-col space-y-4">
             <div>
-              <Label htmlFor="name">Queue Name</Label>
+              <Label htmlFor="name">Nombre de la cola</Label>
               <Input
                 id="name"
-                placeholder="Enter the queue name"
+                placeholder="Ingresá el nombre de la cola"
                 onChange={(e) => setName(e.target.value)}
               />
             </div>
             <div>
-              <Label htmlFor="username">Username (email)</Label>
+              <Label htmlFor="username">Usuario (correo electrónico)</Label>
               <Input
                 id="username"
                 type="email"
-                placeholder="Enter the email"
+                placeholder="Ingresá el correo electrónico"
                 onChange={(e) => setUsername(e.target.value)}
               />
             </div>
             <div>
-              <Label htmlFor="password">Password</Label>
+              <Label htmlFor="password">Contraseña</Label>
               <Input
                 id="password"
                 type="password"
-                placeholder="Enter the password"
+                placeholder="Ingresá la contraseña"
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
             <div>
-              <Label htmlFor="hostname">Hostname</Label>
+              <Label htmlFor="hostname">Servidor</Label>
               <Input
                 id="hostname"
-                placeholder="Enter the hostname"
+                placeholder="Ingresá el servidor"
                 onChange={(e) => setHostname(e.target.value)}
               />
             </div>
@@ -175,11 +176,11 @@ function PasswordProvider({ setStep }: any) {
               <Label htmlFor="tls">TLS</Label>
               <Select onValueChange={(value) => setTls(value)}>
                 <SelectTrigger>
-                  <SelectValue placeholder="Select TLS setting" />
+                  <SelectValue placeholder="Seleccioná la opción de TLS" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="true">True</SelectItem>
-                  <SelectItem value="false">False</SelectItem>
+                  <SelectItem value="true">Activado</SelectItem>
+                  <SelectItem value="false">Desactivado</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -188,9 +189,9 @@ function PasswordProvider({ setStep }: any) {
       </CardContent>
       <CardFooter className="flex justify-between">
         <Button variant="outline" onClick={() => setStep(0)}>
-          Back
+          Volver
         </Button>
-        <Button onClick={() => newQueue()}>Save</Button>
+        <Button onClick={() => newQueue()}>Guardar</Button>
       </CardFooter>
     </Card>
   );
@@ -236,8 +237,8 @@ function GmailSettings({ setStep }: { setStep: (step: number) => void }) {
   return (
     <Card className="w-[480px]">
       <CardHeader>
-        <CardTitle>Gmail Settings</CardTitle>
-        <CardDescription>Configure your Gmail OAuth2 settings.</CardDescription>
+        <CardTitle>Configuración de Gmail</CardTitle>
+        <CardDescription>Configurá los datos de OAuth2 de Gmail.</CardDescription>
       </CardHeader>
       <CardContent>
         <div className="grid w-full items-center gap-4">
@@ -247,7 +248,7 @@ function GmailSettings({ setStep }: { setStep: (step: number) => void }) {
                 htmlFor="client_id"
                 className="block text-sm font-medium text-foreground"
               >
-                Client ID
+                ID de cliente
               </label>
               <div className="mt-1 flex rounded-md shadow-sm">
                 <input
@@ -255,7 +256,7 @@ function GmailSettings({ setStep }: { setStep: (step: number) => void }) {
                   name="client_id"
                   id="client_id"
                   className="flex-1 text-foreground text-sm bg-transparent focus:ring-green-500 focus:border-green-500 block w-full min-w-0 rounded-md"
-                  placeholder="Your Client ID"
+                  placeholder="Tu ID de cliente"
                   value={clientId}
                   onChange={(e) => setClientId(e.target.value)}
                 />
@@ -267,7 +268,7 @@ function GmailSettings({ setStep }: { setStep: (step: number) => void }) {
                 htmlFor="client_secret"
                 className="block text-sm font-medium text-foreground"
               >
-                Client Secret
+                Secreto de cliente
               </label>
               <div className="mt-1 flex rounded-md shadow-sm">
                 <input
@@ -275,7 +276,7 @@ function GmailSettings({ setStep }: { setStep: (step: number) => void }) {
                   name="client_secret"
                   id="client_secret"
                   className="flex-1 text-foreground text-sm bg-transparent focus:ring-green-500 focus:border-green-500 block w-full min-w-0 rounded-md"
-                  placeholder="Your Client Secret"
+                  placeholder="Tu secreto de cliente"
                   value={clientSecret}
                   onChange={(e) => setClientSecret(e.target.value)}
                 />
@@ -287,7 +288,7 @@ function GmailSettings({ setStep }: { setStep: (step: number) => void }) {
                 htmlFor="user_email"
                 className="block text-sm font-medium text-foreground"
               >
-                User Email
+                Correo del usuario
               </label>
               <div className="mt-1 flex rounded-md shadow-sm">
                 <input
@@ -295,7 +296,7 @@ function GmailSettings({ setStep }: { setStep: (step: number) => void }) {
                   name="user_email"
                   id="user_email"
                   className="flex-1 text-foreground text-sm bg-transparent focus:ring-green-500 focus:border-green-500 block w-full min-w-0 rounded-md"
-                  placeholder="Your Email"
+                  placeholder="Tu correo electrónico"
                   value={user}
                   onChange={(e) => setUser(e.target.value)}
                 />
@@ -307,7 +308,7 @@ function GmailSettings({ setStep }: { setStep: (step: number) => void }) {
                 htmlFor="user_email"
                 className="block text-sm font-medium text-foreground"
               >
-                Redirect URI
+                URI de redirección
               </label>
               <div className="mt-1 flex rounded-md shadow-sm">
                 <input
@@ -315,7 +316,7 @@ function GmailSettings({ setStep }: { setStep: (step: number) => void }) {
                   name="redirect_uri"
                   id="redirect_uri"
                   className="flex-1 text-foreground text-sm bg-transparent focus:ring-green-500 focus:border-green-500 block w-full min-w-0 rounded-md"
-                  placeholder="Your Redirect URI"
+                  placeholder="Tu URI de redirección"
                   value={redirectUri}
                   onChange={(e) => setRedirectUri(e.target.value)}
                 />
@@ -326,14 +327,14 @@ function GmailSettings({ setStep }: { setStep: (step: number) => void }) {
       </CardContent>
       <CardFooter className="flex justify-between">
         <Button size="sm" variant="outline" onClick={() => setStep(0)}>
-          Back
+          Volver
         </Button>
         <Button
           size="sm"
           disabled={!clientId || !clientSecret || !user}
           onClick={() => submitGmailConfig()}
         >
-          Submit
+          Enviar
         </Button>
       </CardFooter>
     </Card>

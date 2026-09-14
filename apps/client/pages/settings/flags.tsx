@@ -12,19 +12,19 @@ const defaultFlags: FeatureFlag[] = [
   {
     name: "Hide Keyboard Shortcuts",
     enabled: false,
-    description: "Hide keyboard shortcuts",
+    description: "Ocultar los atajos de teclado",
     flagKey: "keyboard_shortcuts_hide", // Added flag key for this feature
   },
   {
     name: "Hide Name in Create",
     enabled: false,
-    description: "Hide name field in create a new issue",
+    description: "Ocultar el campo Nombre al crear un ticket",
     flagKey: "name_hide", // Added flag key for this feature
   },
   {
     name: "Hide Email in Create",
     enabled: false,
-    description: "Hide email field in create a new issue",
+    description: "Ocultar el campo Correo al crear un ticket",
     flagKey: "email_hide", // Added flag key for this feature
   },
 ];
@@ -62,7 +62,7 @@ export default function FeatureFlags() {
 
   return (
     <div className="p-6">
-      <h1 className="text-2xl font-bold mb-6">Feature Flags</h1>
+      <h1 className="text-2xl font-bold mb-6">Funciones opcionales</h1>
       <div className="space-y-4">
         {flags.map((flag) => (
           <div
@@ -75,7 +75,7 @@ export default function FeatureFlags() {
             </div>
             <div>
               <button onClick={() => toggleFlag(flag.name)}>
-                {flag.enabled ? "Disable" : "Enable"}
+                {flag.enabled ? "Desactivar" : "Activar"}
               </button>
             </div>
           </div>

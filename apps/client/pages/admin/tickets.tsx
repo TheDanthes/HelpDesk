@@ -47,7 +47,7 @@ function DefaultColumnFilter({ column }: any) {
       onChange={(e) => {
         column.setFilterValue(e.target.value || undefined);
       }}
-      placeholder="Type to filter"
+      placeholder="Escribí para filtrar"
     />
   );
 }
@@ -138,12 +138,12 @@ function TicketsTable({ columns, data }: any) {
           {data.length > 10 && (
             <nav
               className="flex items-center justify-between border-t border-border/60 bg-card/70 px-4 py-3 sm:px-6"
-              aria-label="Pagination"
+              aria-label="Paginación"
             >
               <div className="hidden sm:block">
                 <div className="flex flex-row flex-nowrap w-full space-x-2">
                   <p className="block text-sm font-medium text-muted-foreground mt-4">
-                    Show
+                    Mostrar
                   </p>
                   <Select
                     value={`${table.getState().pagination.pageSize}`}
@@ -152,7 +152,7 @@ function TicketsTable({ columns, data }: any) {
                     }}
                   >
                     <SelectTrigger className="bg-background/60">
-                      <SelectValue placeholder="Page size" />
+                      <SelectValue placeholder="Tamaño de página" />
                     </SelectTrigger>
                     <SelectContent>
                       {[10, 20, 30, 40, 50].map((pageSize) => (
@@ -172,7 +172,7 @@ function TicketsTable({ columns, data }: any) {
                   onClick={() => table.previousPage()}
                   disabled={!table.getCanPreviousPage()}
                 >
-                  Previous
+                  Anterior
                 </Button>
                 <Button
                   variant="outline"
@@ -182,7 +182,7 @@ function TicketsTable({ columns, data }: any) {
                   onClick={() => table.nextPage()}
                   disabled={!table.getCanNextPage()}
                 >
-                  Next
+                  Siguiente
                 </Button>
               </div>
             </nav>
@@ -208,12 +208,12 @@ export default function Clients() {
   const columns = useMemo(
     () => [
       {
-        header: "Type",
+        header: "Tipo",
         accessorKey: "type",
         id: "type",
       },
       {
-        header: "Summary",
+        header: "Resumen",
         accessorKey: "title",
         id: "summary",
         cell: ({ getValue }: any) => {
@@ -221,25 +221,25 @@ export default function Clients() {
         },
       },
       {
-        header: "Assignee",
+        header: "Responsable",
         id: "assignee",
         accessorFn: (row: any) => row?.assignedTo?.name,
         cell: ({ getValue }: any) => {
           const value = getValue();
-          return <span className="w-[80px] truncate">{value || "n/a"}</span>;
+          return <span className="w-[80px] truncate">{value || "n/d"}</span>;
         },
       },
       {
-        header: "Client",
+        header: "Cliente",
         id: "client",
         accessorFn: (row: any) => row?.client?.name,
         cell: ({ getValue }: any) => {
           const value = getValue();
-          return <span className="w-[80px] truncate">{value || "n/a"}</span>;
+          return <span className="w-[80px] truncate">{value || "n/d"}</span>;
         },
       },
       {
-        header: "Priority",
+        header: "Prioridad",
         accessorKey: "priority",
         id: "priority",
         cell: ({ getValue }: any) => {
@@ -266,23 +266,23 @@ export default function Clients() {
         },
       },
       {
-        header: "Status",
+        header: "Estado",
         accessorKey: "status",
         id: "status",
         cell: ({ getValue }: any) => {
           const value = getValue();
           return (
             <span className="inline-flex items-center rounded-md bg-yellow-50 px-2 py-1 text-xs font-medium text-yellow-700 ring-1 ring-inset ring-red-600/10">
-              {value === "needs_support" && <span>Needs Support</span>}
-              {value === "in_progress" && <span>In Progress</span>}
-              {value === "in_review" && <span>In Review</span>}
-              {value === "done" && <span>Done</span>}
+              {value === "needs_support" && <span>Necesita soporte</span>}
+              {value === "in_progress" && <span>En curso</span>}
+              {value === "in_review" && <span>En revisión</span>}
+              {value === "done" && <span>Finalizado</span>}
             </span>
           );
         },
       },
       {
-        header: "Created",
+        header: "Creado",
         accessorKey: "createdAt",
         id: "created",
         cell: ({ getValue }: any) => {
@@ -305,15 +305,15 @@ export default function Clients() {
             <div className="sm:flex sm:items-center">
               <div className="sm:flex-auto mt-4">
                 <p className="mt-2 text-sm text-gray-700">
-                  A list of all your organisation's tickets, regardless of
-                  status.
+                  Lista de todos los tickets de tu organización, sin importar
+                  su estado.
                 </p>
               </div>
             </div>
             <div className="py-4">
               {isLoading && (
                 <div className="min-h-screen flex flex-col justify-center items-center py-12 sm:px-6 lg:px-8">
-                  <h2> Loading data ... </h2>
+                  <h2> Cargando datos ... </h2>
                 </div>
               )}
 
@@ -321,7 +321,7 @@ export default function Clients() {
                 <div className="min-h-screen flex flex-col justify-center items-center py-12 sm:px-6 lg:px-8">
                   <h2 className="text-2xl font-bold">
                     {" "}
-                    Error fetching data ...{" "}
+                    Error al obtener los datos ...{" "}
                   </h2>
                 </div>
               )}
@@ -358,7 +358,7 @@ export default function Clients() {
                         </svg>
 
                         <h3 className="mt-2 text-sm font-medium text-gray-900">
-                          You currently don't have any assigned tickets. :)
+                          Por ahora no tenés tickets asignados. :)
                         </h3>
                       </div>
                     </>

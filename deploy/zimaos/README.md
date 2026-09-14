@@ -93,8 +93,21 @@ sudo docker pull ghcr.io/thedanthes/ondesk-api:beta
 sudo docker pull ghcr.io/thedanthes/ondesk-client:beta
 ```
 
-y reiniciar la app desde ZimaOS. Las migraciones de base de datos corren solas
-al arrancar la API.
+Y despues hay que **recrear** los contenedores desde ZimaOS, no reiniciarlos:
+`docker restart` reusa el contenedor existente, que quedo atado al ID de la
+imagen vieja, asi que sigue corriendo la version anterior aunque el pull haya
+bajado la nueva. En ZimaOS se usa la opcion de actualizar la app; si no
+aparece, desinstalar y volver a instalar con el mismo YAML (los datos viven en
+`/media/ZimaOS-HD/AppData/ondesk/`, fuera de los contenedores, y sobreviven —
+si la desinstalacion ofrece borrar los datos, hay que decirle que no).
+
+Las migraciones de base de datos corren solas al arrancar la API.
+
+Para comprobar que quedo bien antes de probar el login, abrir
+`http://<ip-del-zima>:3002/api/v1/auth/check`. Si responde JSON (incluido un
+`Unauthorized`, que es lo esperado sin token) el camino dashboard -> API esta
+cerrado. Si responde `Bad Gateway`, el proxy no llega a la API y el problema no
+son las credenciales.
 
 ## Puertos
 

@@ -36,7 +36,7 @@ export default function PortalLayout({ children }: any) {
 
   if (location.pathname.includes("/admin") && user.isAdmin === false) {
     location.push("/");
-    alert("You do not have the correct perms for that action.");
+    alert("No tenés los permisos necesarios para esa acción.");
   }
 
   const navigation = [
@@ -159,7 +159,7 @@ export default function PortalLayout({ children }: any) {
                         className="-m-2.5 p-2.5"
                         onClick={() => setSidebarOpen(false)}
                       >
-                        <span className="sr-only">Close sidebar</span>
+                        <span className="sr-only">Cerrar menú lateral</span>
                         <XMarkIcon
                           className="h-6 w-6 text-white"
                           aria-hidden="true"
@@ -173,7 +173,7 @@ export default function PortalLayout({ children }: any) {
                       {/* <img className="h-8 w-auto" src="/logo.svg" alt="Workflow" /> */}
                       <Link href={process.env.BASE_URL ?? "https://pepperminto.dev"}>
                         <span className="text-3xl ml-2  hover:text-green-600 font-bold ">
-                          Pepperminto
+                          OnDesk
                         </span>
                       </Link>
                     </div>
@@ -219,7 +219,7 @@ export default function PortalLayout({ children }: any) {
                               className="h-6 w-6 shrink-0 text-gray-400 group-hover:text-indigo-600"
                               aria-hidden="true"
                             />
-                            Settings
+                            Configuración
                           </a>
                         </li>
                       </ul>
@@ -239,7 +239,7 @@ export default function PortalLayout({ children }: any) {
               {/* <img className="h-8 w-auto" src="/logo.svg" alt="Workflow" /> */}
               <Link href={process.env.BASE_URL ?? "https://pepperminto.dev"}>
                 <span className="text-3xl ml-2  hover:text-green-600 font-bold ">
-                  Pepperminto
+                  OnDesk
                 </span>
               </Link>
             </div>
@@ -286,7 +286,7 @@ export default function PortalLayout({ children }: any) {
                           )}
                         >
                           <TicketIcon className="h-4 w-4 shrink-0 mt-1" />
-                          <span className="whitespace-nowrap">Issues</span>
+                          <span className="whitespace-nowrap">Tickets</span>
                           <div className="flex w-full justify-end float-right">
                             <span className="flex h-6 w-6 shrink-0 items-center bg-transparent border-none justify-center text-md font-medium">
                               t
@@ -305,7 +305,7 @@ export default function PortalLayout({ children }: any) {
                           )}
                         >
                           <span className="whitespace-nowrap">
-                            open
+                            abiertos
                           </span>
                           <div className="flex w-full justify-end float-right">
                             <span className="flex h-6 w-6 shrink-0 items-center bg-transparent border-none justify-center text-md font-medium">
@@ -326,7 +326,7 @@ export default function PortalLayout({ children }: any) {
                           )}
                         >
                           <span className="whitespace-nowrap">
-                            closed
+                            cerrados
                           </span>
                           <div className="flex w-full justify-end float-right">
                             <span className="flex h-6 w-6 shrink-0 items-center bg-transparent border-none justify-center text-md font-medium">
@@ -350,7 +350,7 @@ export default function PortalLayout({ children }: any) {
               className="-m-2.5 p-2.5 text-black dark:text-white lg:hidden"
               onClick={() => setSidebarOpen(true)}
             >
-              <span className="sr-only">Open sidebar</span>
+              <span className="sr-only">Abrir menú lateral</span>
               <Bars3Icon
                 className="h-6 w-6 text-black dark:text-white"
                 aria-hidden="true"
@@ -368,7 +368,7 @@ export default function PortalLayout({ children }: any) {
                 {/* Profile dropdown */}
                 <Menu as="div" className="relative">
                   <Menu.Button className="z-50 flex items-center p-1.5">
-                    <span className="sr-only">Open user menu</span>
+                    <span className="sr-only">Abrir menú de usuario</span>
                     <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-gray-500">
                       <span className="text-xs mt-0.5 font-medium leading-none text-white uppercase">
                         {user.name[0]}
@@ -409,13 +409,17 @@ export default function PortalLayout({ children }: any) {
 
           <main className="bg-white dark:bg-[#0A090C]">{children}</main>
           <footer className="border-t border-gray-200 bg-white px-4 py-3 text-xs text-gray-500 dark:border-gray-800 dark:bg-[#0A090C] dark:text-gray-400">
-            <span>Source available at </span>
-            <Link
-              href="https://github.com/TheDanthes/HelpDesk"
-              className="underline underline-offset-4 hover:text-gray-900 dark:hover:text-white"
-            >
-              github.com/TheDanthes/HelpDesk
-            </Link>
+            {/* Al cliente no le interesa el repositorio: le interesa saber de
+                quien es la mesa de ayuda y quien la atiende. */}
+            <span>
+              {user?.clients?.length === 1
+                ? `Mesa de ayuda de ${user.clients[0].name}`
+                : "Mesa de ayuda"}
+              {" · atendida por "}
+              <span className="font-medium text-gray-700 dark:text-gray-200">
+                OnDesk
+              </span>
+            </span>
           </footer>
         </div>
       </div>

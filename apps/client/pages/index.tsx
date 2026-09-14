@@ -94,14 +94,14 @@ export default function Home() {
   }
 
   const stats = [
-    { name: "Open Issues", stat: openTickets, href: "/issues" },
+    { name: "Tickets abiertos", stat: openTickets, href: "/issues" },
     {
-      name: "Completed Issues",
+      name: "Tickets resueltos",
       stat: completedTickets,
       href: "/issues?filter=closed",
     },
     {
-      name: "Unassigned Issues",
+      name: "Tickets sin asignar",
       stat: unassigned,
       href: "/issues?filter=unassigned",
     },
@@ -129,7 +129,7 @@ export default function Home() {
           {user.isAdmin && (
             <Link href="https://github.com/nulldoubt/Pepperminto/releases">
               <span className="inline-flex items-center rounded-md bg-green-700/10 px-3 py-2 text-xs font-medium text-green-600 ring-1 ring-inset ring-green-500/20">
-                Version 0.1.3
+                Versión 0.1.3
               </span>
             </Link>
           )}
@@ -175,13 +175,13 @@ export default function Home() {
                       />
                     </svg>
                     <span className="mt-2 block text-sm font-semibold text-gray-900 dark:text-white">
-                      Create your first Issue
+                      Creá tu primer ticket
                     </span>
                   </button>
                 </>
               ) : (
                 <>
-                  <span className="font-bold text-2xl">Recent Issues</span>
+                  <span className="font-bold text-2xl">Tickets recientes</span>
                   <div className="-mx-4 sm:-mx-0 w-full">
                     <Table className="min-w-full divide-y divide-gray-300">
                       <TableHeader>
@@ -214,7 +214,7 @@ export default function Home() {
                               <TableCell className="sm:max-w-[280px] 2xl:max-w-[720px] truncate px-4 py-1 text-sm font-medium text-gray-900 dark:text-white">
                                 {item.title}
                                 <dl className="font-normal lg:hidden">
-                                  <dt className="sr-only sm:hidden">Email</dt>
+                                  <dt className="sr-only sm:hidden">Correo electrónico</dt>
                                   <dd className="mt-1 truncate text-gray-500 sm:hidden">
                                     {item.email}
                                   </dd>

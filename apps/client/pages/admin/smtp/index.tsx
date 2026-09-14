@@ -120,19 +120,19 @@ export default function Notifications() {
           <div className="divide-y-2">
             <div className="px-4 sm:px-6 md:px-0 flex flex-row justify-between">
               <h1 className="text-3xl font-extrabold text-foreground">
-                SMTP Email Settings
+                Configuración de correo SMTP
               </h1>
 
               <button className="text-xs" onClick={() => resetSMTP()}>
-                Reset SMTP
+                Restablecer SMTP
               </button>
             </div>
             <div className="px-4 sm:px-6 md:px-0">
               <div className="sm:flex sm:items-center mt-4">
                 <div className="sm:flex-auto">
                   <p className="mt-2 text-sm text-foreground-muted">
-                    Manage your smtp email settings. These settings will be used
-                    to send all outbound emails.
+                    Administrá la configuración de correo SMTP. Se usa para
+                    enviar todos los mensajes salientes.
                   </p>
                 </div>
               </div>
@@ -158,12 +158,12 @@ export default function Notifications() {
                             </div>
                             <div className="ml-3">
                               <h3 className="text-sm font-medium text-green-800">
-                                SMTP Config Found & working
+                                Configuración SMTP encontrada y funcionando
                               </h3>
                               <div className="mt-2 text-sm text-green-700">
                                 <p>
-                                  The config you supplied is working as
-                                  intended.
+                                  La configuración que cargaste funciona
+                                  correctamente.
                                 </p>
                               </div>
                             </div>
@@ -173,19 +173,19 @@ export default function Notifications() {
                             type="button"
                             className="rounded bg-red-500 text-white px-4 py-2 text-sm font-semibold shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-secondary"
                           >
-                            Delete Settings
+                            Eliminar configuración
                           </button>
                         </div>
                       </div>
 
                       <div className="mt-4">
-                        <h1>Email Templates</h1>
+                        <h1>Plantillas de correo</h1>
                         <Table className="min-w-full">
                           <TableHeader>
                             <TableRow>
-                              <TableHead>Type</TableHead>
-                              <TableHead>Subject</TableHead>
-                              <TableHead>Preview</TableHead>
+                              <TableHead>Tipo</TableHead>
+                              <TableHead>Asunto</TableHead>
+                              <TableHead>Vista previa</TableHead>
                               <TableHead />
                             </TableRow>
                           </TableHeader>
@@ -202,7 +202,7 @@ export default function Notifications() {
                                     href={`/admin/smtp/templates/${template.id}`}
                                     className="text-sm font-semibold text-primary hover:underline"
                                   >
-                                    Edit
+                                    Editar
                                   </a>
                                 </TableCell>
                               </TableRow>
@@ -224,12 +224,12 @@ export default function Notifications() {
                             </div>
                             <div className="ml-3">
                               <h3 className="text-sm font-medium text-red-800">
-                                Authentication Error
+                                Error de autenticación
                               </h3>
                               <div className="mt-2 text-sm text-red-700">
                                 <p>
                                   {error?.message ||
-                                    "An unknown error occurred."}
+                                    "Ocurrió un error desconocido."}
                                 </p>
                               </div>
                             </div>
@@ -240,26 +240,26 @@ export default function Notifications() {
                             type="button"
                             className="rounded bg-red-500 text-white px-4 py-2 text-sm font-semibold shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-secondary"
                           >
-                            Delete Settings
+                            Eliminar configuración
                           </button>
                         </div>
                       </div>
 
                       <div className="mt-2 ml-0.5 flex flex-col">
                         <span className="text-sm font-semibold">
-                          Verification Status
+                          Estado de la verificación
                         </span>
                         <span className="text-xs font-semibold">
-                          Code: {error && error.code}
+                          Código: {error && error.code}
                         </span>
                         <span className="text-xs font-semibold">
-                          Code: {error && error.response}
+                          Código: {error && error.response}
                         </span>
                         <span className="text-xs font-semibold">
-                          Code: {error && error.responseCode}
+                          Código: {error && error.responseCode}
                         </span>
                         <span className="text-xs font-semibold">
-                          Code: {error && error.command}
+                          Código: {error && error.command}
                         </span>
                       </div>
                     </div>
@@ -271,39 +271,39 @@ export default function Notifications() {
                     {step === 0 && (
                       <Card className="w-[350px]">
                         <CardHeader>
-                          <CardTitle>Email Provider</CardTitle>
+                          <CardTitle>Proveedor de correo</CardTitle>
                           <CardDescription>
-                            Certain providers require different settings.
+                            Algunos proveedores requieren una configuración distinta.
                           </CardDescription>
                         </CardHeader>
                         <CardContent>
                           <div className="grid w-full items-center gap-4">
                             <div className="flex flex-col space-y-1.5">
-                              <Label htmlFor="framework">Provider</Label>
+                              <Label htmlFor="framework">Proveedor</Label>
                               <Select
                                 onValueChange={(value) => setProvider(value)}
                               >
                                 <SelectTrigger id="framework">
-                                  <SelectValue placeholder="Select" />
+                                  <SelectValue placeholder="Seleccionar" />
                                 </SelectTrigger>
                                 <SelectContent position="popper">
                                   <SelectItem disabled value="microsoft">
                                     Microsoft
                                   </SelectItem>
                                   <SelectItem value="gmail">Google</SelectItem>
-                                  <SelectItem value="other">Other</SelectItem>
+                                  <SelectItem value="other">Otro</SelectItem>
                                 </SelectContent>
                               </Select>
                             </div>
                           </div>
                         </CardContent>
                         <CardFooter className="flex justify-between">
-                          <Button variant="outline">Cancel</Button>
+                          <Button variant="outline">Cancelar</Button>
                           <Button
                             disabled={provider === ""}
                             onClick={() => setStep(1)}
                           >
-                            Next
+                            Siguiente
                           </Button>
                         </CardFooter>
                       </Card>
@@ -323,7 +323,7 @@ export default function Notifications() {
             </div>
           </div>
         ) : (
-          <div>Loading...</div>
+          <div>Cargando...</div>
         )}
       </div>
     </main>
@@ -373,8 +373,8 @@ function GmailSettings({ setStep }: { setStep: (step: number) => void }) {
   return (
     <Card className="w-[350px]">
       <CardHeader>
-        <CardTitle>Gmail Settings</CardTitle>
-        <CardDescription>Configure your Gmail OAuth2 settings.</CardDescription>
+        <CardTitle>Configuración de Gmail</CardTitle>
+        <CardDescription>Configurá los datos de OAuth2 de Gmail.</CardDescription>
       </CardHeader>
       <CardContent>
         <div className="grid w-full items-center gap-4">
@@ -384,7 +384,7 @@ function GmailSettings({ setStep }: { setStep: (step: number) => void }) {
                 htmlFor="client_id"
                 className="block text-sm font-medium text-foreground"
               >
-                Client ID
+                ID de cliente
               </label>
               <div className="mt-1 flex rounded-md shadow-sm">
                 <input
@@ -392,7 +392,7 @@ function GmailSettings({ setStep }: { setStep: (step: number) => void }) {
                   name="client_id"
                   id="client_id"
                   className="flex-1 text-foreground text-sm bg-transparent focus:ring-green-500 focus:border-green-500 block w-full min-w-0 rounded-md"
-                  placeholder="Your Client ID"
+                  placeholder="Tu ID de cliente"
                   value={clientId}
                   onChange={(e) => setClientId(e.target.value)}
                 />
@@ -404,7 +404,7 @@ function GmailSettings({ setStep }: { setStep: (step: number) => void }) {
                 htmlFor="client_secret"
                 className="block text-sm font-medium text-foreground"
               >
-                Client Secret
+                Secreto de cliente
               </label>
               <div className="mt-1 flex rounded-md shadow-sm">
                 <input
@@ -412,7 +412,7 @@ function GmailSettings({ setStep }: { setStep: (step: number) => void }) {
                   name="client_secret"
                   id="client_secret"
                   className="flex-1 text-foreground text-sm bg-transparent focus:ring-green-500 focus:border-green-500 block w-full min-w-0 rounded-md"
-                  placeholder="Your Client Secret"
+                  placeholder="Tu secreto de cliente"
                   value={clientSecret}
                   onChange={(e) => setClientSecret(e.target.value)}
                 />
@@ -424,7 +424,7 @@ function GmailSettings({ setStep }: { setStep: (step: number) => void }) {
                 htmlFor="user_email"
                 className="block text-sm font-medium text-foreground"
               >
-                User Email
+                Correo del usuario
               </label>
               <div className="mt-1 flex rounded-md shadow-sm">
                 <input
@@ -432,7 +432,7 @@ function GmailSettings({ setStep }: { setStep: (step: number) => void }) {
                   name="user_email"
                   id="user_email"
                   className="flex-1 text-foreground text-sm bg-transparent focus:ring-green-500 focus:border-green-500 block w-full min-w-0 rounded-md"
-                  placeholder="Your Email"
+                  placeholder="Tu correo electrónico"
                   value={user}
                   onChange={(e) => setUser(e.target.value)}
                 />
@@ -444,7 +444,7 @@ function GmailSettings({ setStep }: { setStep: (step: number) => void }) {
                 htmlFor="user_email"
                 className="block text-sm font-medium text-foreground"
               >
-                Redirect URI
+                URI de redirección
               </label>
               <div className="mt-1 flex rounded-md shadow-sm">
                 <input
@@ -452,7 +452,7 @@ function GmailSettings({ setStep }: { setStep: (step: number) => void }) {
                   name="redirect_uri"
                   id="redirect_uri"
                   className="flex-1 text-foreground text-sm bg-transparent focus:ring-green-500 focus:border-green-500 block w-full min-w-0 rounded-md"
-                  placeholder="Your Redirect URI"
+                  placeholder="Tu URI de redirección"
                   value={redirectUri}
                   onChange={(e) => setRedirectUri(e.target.value)}
                 />
@@ -463,14 +463,14 @@ function GmailSettings({ setStep }: { setStep: (step: number) => void }) {
       </CardContent>
       <CardFooter className="flex justify-between">
         <Button size="sm" variant="outline" onClick={() => setStep(0)}>
-          Back
+          Volver
         </Button>
         <Button
           size="sm"
           disabled={!clientId || !clientSecret || !user}
           onClick={() => submitGmailConfig()}
         >
-          Submit
+          Enviar
         </Button>
       </CardFooter>
     </Card>
@@ -511,7 +511,7 @@ function SMTP({ setStep }: { setStep: (step: number) => void }) {
   return (
     <Card className="w-[350px]">
       <CardHeader>
-        <CardTitle>SMTP Settings</CardTitle>
+        <CardTitle>Configuración de SMTP</CardTitle>
         <CardDescription></CardDescription>
       </CardHeader>
       <CardContent>
@@ -522,7 +522,7 @@ function SMTP({ setStep }: { setStep: (step: number) => void }) {
                 htmlFor="company_website"
                 className="block text-sm font-medium text-foreground"
               >
-                SMTP Host
+                Servidor SMTP
               </label>
               <div className="mt-1 flex rounded-md shadow-sm">
                 <input
@@ -542,7 +542,7 @@ function SMTP({ setStep }: { setStep: (step: number) => void }) {
                 htmlFor="company_website"
                 className="block text-sm font-medium text-foreground"
               >
-                Username
+                Usuario
               </label>
               <div className="mt-1 flex rounded-md shadow-sm">
                 <input
@@ -550,7 +550,7 @@ function SMTP({ setStep }: { setStep: (step: number) => void }) {
                   name="company_website"
                   id="company_website"
                   className="flex-1 text-foreground text-sm  bg-transparent focus:ring-green-500 focus:border-green-500 block w-full min-w-0 rounded-md"
-                  placeholder="username"
+                  placeholder="usuario"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
                 />
@@ -562,7 +562,7 @@ function SMTP({ setStep }: { setStep: (step: number) => void }) {
                 htmlFor="company_website"
                 className="block text-sm font-medium text-foreground"
               >
-                Password
+                Contraseña
               </label>
               <div className="mt-1 flex rounded-md shadow-sm">
                 <input
@@ -570,7 +570,7 @@ function SMTP({ setStep }: { setStep: (step: number) => void }) {
                   name="company_website"
                   id="company_website"
                   className="flex-1 text-foreground text-sm  bg-transparent focus:ring-green-500 focus:border-green-500 block w-full min-w-0 rounded-md"
-                  placeholder="password"
+                  placeholder="contraseña"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 />
@@ -582,7 +582,7 @@ function SMTP({ setStep }: { setStep: (step: number) => void }) {
                 htmlFor="company_website"
                 className="block text-sm font-medium text-foreground"
               >
-                Port
+                Puerto
               </label>
               <div className="mt-1 flex rounded-md shadow-sm">
                 <input
@@ -602,7 +602,7 @@ function SMTP({ setStep }: { setStep: (step: number) => void }) {
                 htmlFor="company_website"
                 className="block text-sm font-medium text-foreground"
               >
-                Reply Address
+                Dirección de respuesta
               </label>
               <div className="mt-1 flex rounded-md shadow-sm">
                 <input
@@ -621,14 +621,14 @@ function SMTP({ setStep }: { setStep: (step: number) => void }) {
       </CardContent>
       <CardFooter className="flex justify-between">
         <Button size="sm" variant="outline" onClick={() => setStep(0)}>
-          Back
+          Volver
         </Button>
         <Button
           size="sm"
           disabled={!host || !port || !username || !password || !reply}
           onClick={() => submitConfig()}
         >
-          Submit
+          Enviar
         </Button>
       </CardFooter>
     </Card>

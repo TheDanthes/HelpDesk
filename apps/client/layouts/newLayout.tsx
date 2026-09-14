@@ -46,7 +46,7 @@ export default function NewLayout({ children }: any) {
 
   if (location.pathname.includes("/admin") && user.isAdmin === false) {
     location.push("/");
-    alert("You do not have the correct perms for that action.");
+    alert("No tenés los permisos necesarios para esa acción.");
   }
 
   if (user && user.external_user) {
@@ -55,14 +55,14 @@ export default function NewLayout({ children }: any) {
 
   const navigation = [
     {
-      name: "Dashboard",
+      name: "Panel",
       href: `/${locale}/`,
       icon: Building,
       current: location.pathname === "/" ? true : false,
       initial: "h",
     },
     {
-      name: "Documents",
+      name: "Documentos",
       href: `/${locale}/documents`,
       icon: FileText,
       current: location.pathname === "/documents" ? true : false,
@@ -70,7 +70,7 @@ export default function NewLayout({ children }: any) {
       internal: true,
     },
     {
-      name: "Knowledge Base",
+      name: "Base de conocimiento",
       href: `/${locale}/knowledge-base`,
       icon: BookOpen,
       current: location.pathname === "/knowledge-base" ? true : false,
@@ -182,7 +182,7 @@ export default function NewLayout({ children }: any) {
                         className="-m-2.5 p-2.5"
                         onClick={() => setSidebarOpen(false)}
                       >
-                        <span className="sr-only">Close sidebar</span>
+                        <span className="sr-only">Cerrar barra lateral</span>
                         <XMarkIcon
                           className="h-6 w-6 text-white"
                           aria-hidden="true"
@@ -195,7 +195,7 @@ export default function NewLayout({ children }: any) {
                     <div className="flex align-middle flex-row h-14 items-center border-b-[1px]">
                       <Link href={process.env.BASE_URL ?? "https://pepperminto.dev"}>
                         <span className="text-3xl ml-2 text-green-500  hover:text-green-600 font-bold ">
-                          Pepperminto
+                          OnDesk
                         </span>
                       </Link>
                     </div>
@@ -244,7 +244,7 @@ export default function NewLayout({ children }: any) {
                                 >
                                   <TicketIcon className="h-4 w-4 ml-1 shrink-0 mt-1" />
                                   <span className="whitespace-nowrap">
-                                    Issues
+                                    Tickets
                                   </span>
                                 </Link>
                               </li>
@@ -259,7 +259,7 @@ export default function NewLayout({ children }: any) {
                                   )}
                                 >
                                   <span className="whitespace-nowrap">
-                                    {user.name}'s open
+                                    Abiertos de {user.name}
                                   </span>
                                 </Link>
                               </li>
@@ -275,7 +275,7 @@ export default function NewLayout({ children }: any) {
                                   )}
                                 >
                                   <span className="whitespace-nowrap">
-                                    {user.name}'s closed
+                                    Cerrados de {user.name}
                                   </span>
                                 </Link>
                               </li>
@@ -321,7 +321,7 @@ export default function NewLayout({ children }: any) {
             <div className="flex align-middle flex-row h-14 items-center border-b-[1px] px-6">
               <Link href={process.env.BASE_URL ?? "https://pepperminto.dev"} target="_blank">
                 <span className="text-3xl ml-2 text-green-500 hover:text-green-600 font-bold">
-                  Pepperminto
+                  OnDesk
                 </span>
               </Link>
             </div>
@@ -374,7 +374,7 @@ export default function NewLayout({ children }: any) {
                           )}
                         >
                           <SquareKanban className="h-4 w-4 ml-1 shrink-0 mt-1" />
-                          <span className="whitespace-nowrap">Issues</span>
+                          <span className="whitespace-nowrap">Tickets</span>
                           <div className="flex w-full justify-end float-right">
                             <span className="flex h-6 w-6 shrink-0 items-center bg-transparent border-none justify-center text-md font-medium">
                               t
@@ -393,7 +393,7 @@ export default function NewLayout({ children }: any) {
                           )}
                         >
                           <span className="whitespace-nowrap">
-                            {user.name}'s open
+                            Abiertos de {user.name}
                           </span>
                           <div className="flex w-full justify-end float-right">
                             <span className="flex h-6 w-6 shrink-0 items-center bg-transparent border-none justify-center text-md font-medium">
@@ -414,7 +414,7 @@ export default function NewLayout({ children }: any) {
                           )}
                         >
                             <span className="whitespace-nowrap">
-                              {user.name}'s closed
+                              Cerrados de {user.name}
                             </span>
                             <div className="flex w-full justify-end float-right">
                               <span className="flex h-6 w-6 shrink-0 items-center bg-transparent border-none justify-center text-md font-medium">
@@ -466,7 +466,7 @@ export default function NewLayout({ children }: any) {
               className="-m-2.5 p-2.5 text-black dark:text-white lg:hidden"
               onClick={() => setSidebarOpen(true)}
             >
-              <span className="sr-only">Open sidebar</span>
+              <span className="sr-only">Abrir barra lateral</span>
               <Bars3Icon
                 className="h-6 w-6 text-black dark:text-white"
                 aria-hidden="true"
@@ -483,7 +483,7 @@ export default function NewLayout({ children }: any) {
                 {user.isAdmin && (
                   <Link href="https://github.com/nulldoubt/Pepperminto/releases">
                     <span className="inline-flex items-center rounded-md bg-green-700/10 px-3 py-2 text-xs font-medium text-green-600 ring-1 ring-inset ring-green-500/20">
-                      Version 0.1.3
+                      Versión 0.1.3
                     </span>
                   </Link>
                 )}
@@ -520,7 +520,7 @@ export default function NewLayout({ children }: any) {
                       variant="outline"
                       className="h-9 whitespace-nowrap hover:bg-accent hover:text-accent-foreground"
                     >
-                      Send Feedback
+                      Enviar comentarios
                     </Button>
                   </Link>
                 )}
@@ -535,13 +535,10 @@ export default function NewLayout({ children }: any) {
             <main className="bg-background min-h-screen">{children}</main>
           )}
           <footer className="border-t bg-background px-4 py-3 text-xs text-muted-foreground">
-            <span>Source available at </span>
-            <Link
-              href="https://github.com/nulldoubt/Pepperminto"
-              className="underline underline-offset-4 hover:text-foreground"
-            >
-              github.com/nulldoubt/Pepperminto
-            </Link>
+            <span>
+              Mesa de ayuda ·{" "}
+              <span className="font-medium text-foreground">OnDesk</span>
+            </span>
           </footer>
         </div>
       </div>

@@ -27,9 +27,8 @@ export default function Tickets() {
       <div className="flex flex-col">
         <div className="py-2 px-6 flex flex-row items-center justify-between bg-muted/40 border-b border-border/60">
           <span className="text-sm font-bold text-foreground">
-            You have {user.notifcations.filter((e) => !e.read).length} unread
-            notifcations
-            {user.notifcations.length > 1 ? "'s" : ""}
+            Tenés {user.notifcations.filter((e) => !e.read).length} notificación
+            {user.notifcations.length > 1 ? "es" : ""} sin leer
           </span>
         </div>
         {user.notifcations.filter((e) => !e.read).length > 0 ? (
@@ -54,7 +53,7 @@ export default function Tickets() {
                         variant="outline"
                         size="sm"
                       >
-                        mark as read
+                        Marcar como leída
                       </Button>
                       <span className="text-xs text-muted-foreground">
                         {moment(item.createdAt).format("DD/MM/yyyy")}
@@ -67,7 +66,7 @@ export default function Tickets() {
         ) : (
           <div className="min-h-screen flex items-center justify-center">
             <span className="block text-sm font-semibold text-foreground">
-              You have no notifcations
+              No tenés notificaciones
             </span>
           </div>
         )}

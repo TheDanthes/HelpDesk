@@ -1,4 +1,5 @@
 import { Dialog, DialogBackdrop, Transition } from "@headlessui/react";
+import { etiquetaTipo } from "@/shadcn/lib/labels";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { getCookie } from "cookies-next";
 import useTranslation from "next-translate/useTranslation";
@@ -285,7 +286,7 @@ export default function CreateTicketModal({ keypress, setKeyPressDown }) {
                           </SelectTrigger>
                           <SelectContent>
                             <SelectItem value="unassigned">
-                              Unassigned
+                              Sin asignar
                             </SelectItem>
                             {options?.map((client: any) => (
                               <SelectItem key={client.id} value={client.id}>
@@ -308,7 +309,7 @@ export default function CreateTicketModal({ keypress, setKeyPressDown }) {
                           </SelectTrigger>
                           <SelectContent>
                             <SelectItem value="unassigned">
-                              Unassigned
+                              Sin asignar
                             </SelectItem>
                             {users?.map((user: any) => (
                               <SelectItem key={user.id} value={user.id}>
@@ -323,12 +324,12 @@ export default function CreateTicketModal({ keypress, setKeyPressDown }) {
                           onValueChange={setSelectedType}
                         >
                           <SelectTrigger className="min-w-[172px] bg-background/60">
-                            <SelectValue placeholder="Select type" />
+                            <SelectValue placeholder="Elegi el tipo" />
                           </SelectTrigger>
                           <SelectContent>
                             {type.map((item) => (
                               <SelectItem key={item.id} value={item.name}>
-                                {item.name}
+                                {etiquetaTipo(item.name)}
                               </SelectItem>
                             ))}
                           </SelectContent>
@@ -346,7 +347,7 @@ export default function CreateTicketModal({ keypress, setKeyPressDown }) {
                         }}
                         type="button"
                       >
-                        Create Ticket
+                        Crear ticket
                       </Button>
                     </div>
                   </div>

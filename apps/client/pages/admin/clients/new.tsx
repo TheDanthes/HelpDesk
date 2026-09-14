@@ -37,15 +37,15 @@ export default function CreateClientPage() {
         if (res.success === true) {
           toast({
             variant: "default",
-            title: "Success",
-            description: "Client created succesfully",
+            title: "Listo",
+            description: "Cliente creado correctamente",
           });
           router.push("/admin/clients");
         } else {
           toast({
             variant: "destructive",
             title: "Error",
-            description: "Whoops! please wait and try again! 🤥",
+            description: "¡Uy! Esperá un momento y volvé a intentar. 🤥",
           });
         }
       });
@@ -58,7 +58,7 @@ export default function CreateClientPage() {
           <div className="pt-10 pb-16 divide-y-2">
             <div className="px-4 sm:px-6 md:px-0">
               <h1 className="text-3xl font-extrabold text-foreground">
-                Register a new client
+                Registrar un nuevo cliente
               </h1>
             </div>
             <div className="py-4">
@@ -67,16 +67,16 @@ export default function CreateClientPage() {
                   <div className="sm:flex sm:items-start">
                     <div className="mt-3 text-center sm:mt-0 sm:text-left w-full">
                       <h3 className="text-lg leading-6 font-medium text-foreground">
-                        Create a new client
+                        Crear un nuevo cliente
                       </h3>
                       <h3 className="text-xs font-normal text-foreground">
-                        All fields are required!
+                        ¡Todos los campos son obligatorios!
                       </h3>
                       <div className="mt-2 space-y-4">
                         <input
                           type="text"
                           className="shadow-sm text-foreground bg-transparent focus:ring-indigo-500 focus:border-indigo-500 block w-3/4 sm:text-sm border-gray-300 rounded-md"
-                          placeholder="Enter client name here..."
+                          placeholder="Ingresá el nombre del cliente..."
                           name="name"
                           onChange={(e) => setName(e.target.value)}
                         />
@@ -84,21 +84,21 @@ export default function CreateClientPage() {
                         <input
                           type="email"
                           className="shadow-sm text-foreground bg-transparent focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
-                          placeholder="Enter email here...."
+                          placeholder="Ingresá el correo electrónico..."
                           onChange={(e) => setEmail(e.target.value)}
                         />
 
                         <input
                           type="text"
                           className="shadow-sm text-foreground bg-transparent focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
-                          placeholder="Enter client primary contact name here..."
+                          placeholder="Ingresá el nombre del contacto principal..."
                           onChange={(e) => setContactName(e.target.value)}
                         />
 
                         <input
                           type="text"
                           className="shadow-sm  text-foreground bg-transparent focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
-                          placeholder="Enter client primary contact number here..."
+                          placeholder="Ingresá el teléfono del contacto principal..."
                           onChange={(e) => setNumber(e.target.value)}
                         />
                       </div>
@@ -114,7 +114,7 @@ export default function CreateClientPage() {
                     createClient();
                   }}
                 >
-                  Save
+                  Guardar
                 </button>
               </div>
             </div>

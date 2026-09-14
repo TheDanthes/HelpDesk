@@ -38,7 +38,7 @@ const Logs = () => {
   }, []);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div>Cargando...</div>;
   }
 
   return (
@@ -50,15 +50,15 @@ const Logs = () => {
           fetchLogs();
         }}
       >
-        Refresh Logs
+        Actualizar registros
       </button>
       <Card>
         <CardHeader>
-          <CardTitle>Logs</CardTitle>
+          <CardTitle>Registros</CardTitle>
         </CardHeader>
         <CardContent>
           {logs.length === 0 ? (
-            <div>No logs available</div>
+            <div>No hay registros disponibles</div>
           ) : (
             <ul>
               {logs.map((log, index) => (

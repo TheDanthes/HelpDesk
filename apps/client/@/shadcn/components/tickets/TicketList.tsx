@@ -1,4 +1,5 @@
 import { ContextMenu, ContextMenuContent, ContextMenuItem, ContextMenuSeparator, ContextMenuTrigger } from '@/shadcn/ui/context-menu';
+import { etiquetaPrioridad, etiquetaTipo } from "@/shadcn/lib/labels";
 import moment from 'moment';
 import Link from 'next/link';
 import { Ticket, UISettings } from '../../types/tickets';
@@ -44,6 +45,11 @@ export default function TicketList({
                       <span className="text-xs font-semibold">#{ticket.Number}</span>
                     )}
                     <span className="text-xs font-semibold">{ticket.title}</span>
+                    {/* El staff ve tickets de todas las empresas: sin esto no hay
+                        forma de saber de cual es cada uno de un vistazo. */}
+                    <span className="text-xs text-muted-foreground truncate max-w-[180px]">
+                      {ticket.client ? ticket.client.name : "sin empresa"}
+                    </span>
                   </div>
                   <div className="flex flex-row space-x-3 items-center">
                     {uiSettings.showDates && (
@@ -53,12 +59,12 @@ export default function TicketList({
                     )}
                     {uiSettings.showType && (
                       <span className={`inline-flex items-center rounded-md px-2 py-1 capitalize justify-center w-20 text-xs font-medium ring-1 ring-inset ring-gray-500/10 bg-orange-400 text-white`}>
-                        {ticket.type}
+                        {etiquetaTipo(ticket.type)}
                       </span>
                     )}
                     {uiSettings.showPriority && (
                       <span className={`inline-flex items-center rounded-md px-2 py-1 capitalize justify-center w-20 text-xs font-medium ring-1 ring-inset ring-gray-500/10 ${badge}`}>
-                        {ticket.priority}
+                        {etiquetaPrioridad(ticket.priority)}
                       </span>
                     )}
                     {uiSettings.showAvatars && ticket.assignedTo && (

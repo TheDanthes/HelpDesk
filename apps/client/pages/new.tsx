@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { etiquetaPrioridad, etiquetaTipo } from "@/shadcn/lib/labels";
 import useTranslation from "next-translate/useTranslation";
 import { useRouter } from "next/router";
 import { useUser } from "../store/session";
@@ -111,8 +112,8 @@ export default function CreateTicket() {
         if (res.success === true) {
           toast({
             variant: "default",
-            title: "Success",
-            description: "Ticket created successfully",
+            title: "Listo",
+            description: "El ticket se creó correctamente",
           });
           router.push("/tickets");
         } else {
@@ -144,7 +145,7 @@ export default function CreateTicket() {
               <SelectValue placeholder={t("select_a_client")} />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="unassigned">Unassigned</SelectItem>
+              <SelectItem value="unassigned">Sin asignar</SelectItem>
               {options?.map((client: any) => (
                 <SelectItem key={client.id} value={client.id}>
                   {client.name}
@@ -162,7 +163,7 @@ export default function CreateTicket() {
               <SelectValue placeholder={t("select_an_engineer")} />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="unassigned">Unassigned</SelectItem>
+              <SelectItem value="unassigned">Sin asignar</SelectItem>
               {users?.map((user: any) => (
                 <SelectItem key={user.id} value={user.id}>
                   {user.name}
@@ -172,12 +173,12 @@ export default function CreateTicket() {
           </Select>
           <Select value={selectedType} onValueChange={setSelectedType}>
             <SelectTrigger className="min-w-[172px] bg-background/60">
-              <SelectValue placeholder="Select type" />
+              <SelectValue placeholder="Seleccioná el tipo" />
             </SelectTrigger>
             <SelectContent>
               {type.map((item) => (
                 <SelectItem key={item.id} value={item.name}>
-                  {item.name}
+                  {etiquetaTipo(item.name)}
                 </SelectItem>
               ))}
             </SelectContent>
@@ -189,7 +190,7 @@ export default function CreateTicket() {
             onClick={() => createTicket()}
             className="rounded bg-green-600 px-4 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600"
           >
-            Create Ticket
+            Crear ticket
           </button>
         </div>
       </div>
@@ -213,7 +214,7 @@ export default function CreateTicket() {
             <div>
               <label>
                 <span className="block text-sm font-medium text-gray-700 dark:text-white">
-                  Contact Name
+                  Nombre de contacto
                 </span>
               </label>
               <input
@@ -230,7 +231,7 @@ export default function CreateTicket() {
             <div>
               <label>
                 <span className="block text-sm font-medium text-gray-700 dark:text-white">
-                  Contact Email
+                  Correo de contacto
                 </span>
               </label>
               <input

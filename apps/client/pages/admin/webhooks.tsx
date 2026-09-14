@@ -59,7 +59,7 @@ export default function Notifications() {
         } else {
           toast({
             variant: "destructive",
-            title: "Error -> Unable to add",
+            title: "Error: no se pudo agregar",
             description: res.message,
           });
         }
@@ -89,7 +89,7 @@ export default function Notifications() {
           <div className="divide-y-2">
             <div className="px-4 sm:px-6 md:px-0">
               <h1 className="text-3xl font-extrabold text-foreground">
-                Webhook Settings
+                Configuración de webhooks
               </h1>
             </div>
            
@@ -104,9 +104,9 @@ export default function Notifications() {
                      <div className="sm:flex sm:items-center mt-4">
                        <div className="sm:flex-auto">
                          <p className="mt-2 text-sm text-foreground">
-                           Webhooks allow external services to be notified when certain
-                           events happen. When the specified events happen, we'll send
-                           a POST request to each of the URLs you provide.
+                           Los webhooks permiten avisarle a servicios externos cuando
+                           ocurren ciertos eventos. Cuando suceden, enviamos una
+                           solicitud POST a cada una de las URL que indiques.
                          </p>
                        </div>
                        <div className="sm:ml-16 sm:flex-none">
@@ -120,7 +120,7 @@ export default function Notifications() {
                                  : "hidden"
                              }
                            >
-                             Add Webhook
+                             Nuevo webhook
                            </button>
                            <button
                              onClick={() => setShow("main")}
@@ -131,7 +131,7 @@ export default function Notifications() {
                                  : "rounded bg-white px-4 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
                              }
                            >
-                             Cancel
+                             Cancelar
                            </button>
                          </>
                        </div>
@@ -159,7 +159,7 @@ export default function Notifications() {
                                   type="button"
                                   className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
                                 >
-                                  Delete
+                                  Eliminar
                                 </button>
                               </div>
                             </div>
@@ -167,7 +167,7 @@ export default function Notifications() {
                         </div>
                       ) : (
                         <p className="text-foreground">
-                          You currently have no web hooks added
+                          Todavía no agregaste ningún webhook
                         </p>
                       )}
                     </div>
@@ -183,7 +183,7 @@ export default function Notifications() {
                           htmlFor="email"
                           className="block text-sm font-medium text-foreground"
                         >
-                          Webhook Name
+                          Nombre del webhook
                         </label>
                         <div className="mt-1">
                           <input
@@ -200,7 +200,7 @@ export default function Notifications() {
                           htmlFor="email"
                           className="block text-sm font-medium text-foreground pt-4"
                         >
-                          Payload Url
+                          URL de destino
                         </label>
                         <div className="mt-1">
                           <input
@@ -218,7 +218,7 @@ export default function Notifications() {
                             htmlFor="location"
                             className="mt-4 block text-sm font-medium text-foreground"
                           >
-                            Type
+                            Tipo
                           </label>
                           <select
                             id="location"
@@ -228,10 +228,10 @@ export default function Notifications() {
                             onChange={(e) => setType(e.target.value)}
                           >
                             <option value="ticket_created">
-                              Ticket created
+                              Ticket creado
                             </option>
                             <option value="ticket_status_changed">
-                              Ticket Status Change
+                              Cambio de estado del ticket
                             </option>
                           </select>
                         </div>
@@ -247,7 +247,7 @@ export default function Notifications() {
                                 className="text-sm font-medium text-foreground w-1/6"
                                 passive
                               >
-                                Active
+                                Activo
                               </Switch.Label>
                               <Switch
                                 checked={enabled}
@@ -276,7 +276,7 @@ export default function Notifications() {
                           type="button"
                           className="mt-8 inline-flex items-center px-3 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
                         >
-                          Add Webhook
+                          Agregar webhook
                         </button>
                       </div>
                     </div>

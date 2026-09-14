@@ -12,6 +12,11 @@ export type User = {
   name: string;
 };
 
+export type Client = {
+  id: string;
+  name: string;
+};
+
 export type Ticket = {
   id: string;
   Number: number;
@@ -24,6 +29,8 @@ export type Ticket = {
   createdAt: string;
   team?: Team;
   assignedTo?: User;
+  /** Empresa cliente a la que pertenece el ticket. Null en los anonimos y los de IMAP. */
+  client?: Client | null;
   isComplete: boolean;
 };
 

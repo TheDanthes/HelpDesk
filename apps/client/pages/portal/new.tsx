@@ -6,6 +6,7 @@
 // Send Email to Engineers with ticket creation if email notifications are turned on
 
 import { CheckCircleIcon } from "@heroicons/react/20/solid";
+import { etiquetaPrioridad, etiquetaTipo } from "@/shadcn/lib/labels";
 import { getCookie } from "cookies-next";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -87,8 +88,8 @@ export default function ClientTicketNew() {
         if (res.success) {
           toast({
             variant: "default",
-            title: "Ticket Created",
-            description: "Ticket created successfully",
+            title: "Ticket creado",
+            description: "El ticket se creó correctamente",
           });
           setView("success");
           setTicketID(res.id);
@@ -96,7 +97,7 @@ export default function ClientTicketNew() {
           toast({
             variant: "destructive",
             title: "Error",
-            description: "Please fill out all information and try again",
+            description: "Completá todos los datos y volvé a intentarlo",
           });
         }
       });
@@ -107,7 +108,7 @@ export default function ClientTicketNew() {
     <div className="flex justify-center items-center content-center h-screen bg-gray-100">
       {view === "new" ? (
         <div className="max-w-4xl min-w-[400px] sm:min-w-[600px] shadow-xl bg-white p-12 rounded-md">
-          <h1 className="font-bold text-2xl">Submit a Ticket</h1>
+          <h1 className="font-bold text-2xl">Crear un ticket</h1>
 
           <div className="my-4 flex flex-col space-y-4">
             <div>
@@ -115,7 +116,7 @@ export default function ClientTicketNew() {
                 htmlFor="email"
                 className="block text-sm font-medium leading-6 text-gray-900"
               >
-                Subject
+                Asunto
               </label>
               <div className="mt-2">
                 <input
@@ -123,7 +124,7 @@ export default function ClientTicketNew() {
                   name="email"
                   id="email"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-green-600 sm:text-sm sm:leading-6"
-                  placeholder="I can't login to my account"
+                  placeholder="No puedo iniciar sesión en mi cuenta"
                   onChange={(e) => setSubject(e.target.value)}
                   value={subject}
                 />
@@ -137,7 +138,7 @@ export default function ClientTicketNew() {
                 </label>
                 <Select value={company} onValueChange={setCompany}>
                   <SelectTrigger className="bg-white">
-                    <SelectValue placeholder="Elegi la empresa" />
+                    <SelectValue placeholder="Elegí la empresa" />
                   </SelectTrigger>
                   <SelectContent>
                     {companies.map((c) => (
@@ -152,16 +153,16 @@ export default function ClientTicketNew() {
 
             <div className="space-y-2">
               <label className="block text-sm font-medium leading-6 text-gray-900">
-                Issue Type
+                Tipo de solicitud
               </label>
               <Select value={selectedType} onValueChange={setSelectedType}>
                 <SelectTrigger className="bg-white">
-                  <SelectValue placeholder="Select type" />
+                  <SelectValue placeholder="Elegí el tipo" />
                 </SelectTrigger>
                 <SelectContent>
                   {type.map((item) => (
                     <SelectItem key={item.id} value={item.name}>
-                      {item.name}
+                      {etiquetaTipo(item.name)}
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -170,16 +171,16 @@ export default function ClientTicketNew() {
 
             <div className="space-y-2">
               <label className="block text-sm font-medium leading-6 text-gray-900">
-                Priority
+                Prioridad
               </label>
               <Select value={priority} onValueChange={setPriority}>
                 <SelectTrigger className="bg-white">
-                  <SelectValue placeholder="Select priority" />
+                  <SelectValue placeholder="Elegí la prioridad" />
                 </SelectTrigger>
                 <SelectContent>
                   {pri.map((item) => (
                     <SelectItem key={item.id} value={item.name}>
-                      {item.name}
+                      {etiquetaPrioridad(item.name)}
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -191,7 +192,7 @@ export default function ClientTicketNew() {
                 htmlFor="comment"
                 className="block text-sm font-medium leading-6 text-gray-900"
               >
-                Description of Issue
+                Descripción del problema
               </label>
               <div className="mt-2">
                 <textarea
@@ -200,7 +201,7 @@ export default function ClientTicketNew() {
                   id="comment"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   defaultValue={""}
-                  placeholder="I think i locked myself out!"
+                  placeholder="Creo que me quedé afuera de mi cuenta"
                   onChange={(e) => setDescription(e.target.value)}
                   value={description}
                 />
@@ -213,7 +214,7 @@ export default function ClientTicketNew() {
               disabled={isLoading || (companies.length > 1 && !company)}
               className="rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-500 disabled:opacity-50"
             >
-              Submit Ticket
+              Crear ticket
             </button>
           </div>
         </div>
@@ -229,12 +230,12 @@ export default function ClientTicketNew() {
               </div>
               <div className="ml-3">
                 <h3 className="text-4xl font-medium text-white">
-                  Ticket Submitted
+                  Ticket enviado
                 </h3>
                 <div className="mt-2 text-sm text-white">
                   <p>
-                    A member of our team has been notified and will be in touch
-                    shortly.
+                    Ya notificamos a nuestro equipo y en breve se van a
+                    comunicar con vos.
                   </p>
                 </div>
                 {/* <div className="mt-4">

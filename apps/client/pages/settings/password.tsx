@@ -29,14 +29,14 @@ export default function PasswordChange({ children }) {
           if (res.success) {
             toast({
               variant: "default",
-              title: "Success",
-              description: "Password updated successfully.",
+              title: "Listo",
+              description: "La contraseña se actualizó correctamente.",
             });
           } else {
             toast({
               variant: "destructive",
               title: "Error",
-              description: "Error: Failed to update password",
+              description: "Error: no se pudo actualizar la contraseña",
             });
           }
         });
@@ -44,7 +44,7 @@ export default function PasswordChange({ children }) {
       toast({
         variant: "destructive",
         title: "Error",
-        description: "Error: passwords do not match",
+        description: "Error: las contraseñas no coinciden",
       });
     }
   };
@@ -56,25 +56,25 @@ export default function PasswordChange({ children }) {
           <div className="m-2 space-y-4 p-4">
             <div className="space-y-2">
               <Label className="text-sm text-foreground">
-                New password
+                Nueva contraseña
               </Label>
               <Input
                 type="password"
                 className="bg-background/60"
                 onChange={(e) => setPassword(e.target.value)}
-                placeholder="Enter users new password"
+                placeholder="Ingresá la nueva contraseña del usuario"
               />
             </div>
 
             <div className="space-y-2">
               <Label className="text-sm text-foreground">
-                Confirm password
+                Confirmar contraseña
               </Label>
               <Input
                 type="password"
                 className="bg-background/60"
                 onChange={(e) => setCheck(e.target.value)}
-                placeholder="Confirm users password"
+                placeholder="Confirmá la contraseña del usuario"
               />
             </div>
           </div>
@@ -86,7 +86,7 @@ export default function PasswordChange({ children }) {
             }}
             type="submit"
           >
-            Update Password
+            Actualizar contraseña
           </Button>
         </div>
       </main>

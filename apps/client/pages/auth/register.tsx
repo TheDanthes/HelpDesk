@@ -64,7 +64,8 @@ export default function Login({}) {
       toast({
         variant: "destructive",
         title: "Error",
-        description: "Passwords do not match or email is invalid",
+        description:
+          "Las contraseñas no coinciden o el correo electrónico no es válido",
       });
     }
   }
@@ -73,7 +74,7 @@ export default function Login({}) {
     <div className="min-h-screen bg-background flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <h2 className="mt-6 text-center text-3xl font-extrabold text-foreground">
-          Create your new account
+          Creá tu cuenta
         </h2>
       </div>
 
@@ -84,16 +85,16 @@ export default function Login({}) {
           <Card className="border-border/60 bg-card/80 shadow-lg backdrop-blur">
             <CardHeader className="space-y-2 text-center">
               <CardTitle className="text-xl text-foreground">
-                Sign up for Pepperminto
+                Registrate en OnDesk
               </CardTitle>
               <p className="text-sm text-muted-foreground">
-                External user registration.
+                Registro de usuarios externos.
               </p>
             </CardHeader>
             <CardContent className="space-y-5">
               <div>
                 <Label htmlFor="email" className="text-sm text-foreground">
-                  Email address
+                  Correo electrónico
                 </Label>
                 <div className="mt-2">
                   <Input
@@ -110,7 +111,7 @@ export default function Login({}) {
 
               <div className="space-y-2">
                 <Label htmlFor="password" className="text-sm text-foreground">
-                  Password
+                  Contraseña
                 </Label>
                 <div className="mt-2">
                   <Input
@@ -125,7 +126,7 @@ export default function Login({}) {
                   />
                 </div>
                 <Label htmlFor="passwordConfirm" className="text-sm text-foreground">
-                  Confirm Password
+                  Confirmar contraseña
                 </Label>
                 <div className="mt-2">
                   <Input
@@ -140,28 +141,28 @@ export default function Login({}) {
                   />
                 </div>
 
-                <Label className="text-sm text-foreground">Language</Label>
+                <Label className="text-sm text-foreground">Idioma</Label>
                 <Select value={language} onValueChange={setLanguage}>
                   <SelectTrigger className="mt-2 bg-background/60">
-                    <SelectValue placeholder="Select a language" />
+                    <SelectValue placeholder="Elegí un idioma" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="en">English</SelectItem>
-                    <SelectItem value="de">German</SelectItem>
-                    <SelectItem value="se">Swedish</SelectItem>
-                    <SelectItem value="es">Spanish</SelectItem>
-                    <SelectItem value="no">Norwegian</SelectItem>
-                    <SelectItem value="fr">French</SelectItem>
-                    <SelectItem value="pt">Tagalong</SelectItem>
-                    <SelectItem value="da">Danish</SelectItem>
-                    <SelectItem value="pt">Portuguese</SelectItem>
+                    <SelectItem value="en">Inglés</SelectItem>
+                    <SelectItem value="de">Alemán</SelectItem>
+                    <SelectItem value="se">Sueco</SelectItem>
+                    <SelectItem value="es">Español</SelectItem>
+                    <SelectItem value="no">Noruego</SelectItem>
+                    <SelectItem value="fr">Francés</SelectItem>
+                    <SelectItem value="pt">Tagalo</SelectItem>
+                    <SelectItem value="da">Danés</SelectItem>
+                    <SelectItem value="pt">Portugués</SelectItem>
                     <SelectItem value="it">Italiano</SelectItem>
-                    <SelectItem value="he">Hebrew</SelectItem>
-                    <SelectItem value="tr">Turkish</SelectItem>
-                    <SelectItem value="hu">Hungarian</SelectItem>
-                    <SelectItem value="th">Thai (ภาษาไทย)</SelectItem>
+                    <SelectItem value="he">Hebreo</SelectItem>
+                    <SelectItem value="tr">Turco</SelectItem>
+                    <SelectItem value="hu">Húngaro</SelectItem>
+                    <SelectItem value="th">Tailandés (ภาษาไทย)</SelectItem>
                     <SelectItem value="zh-CN">
-                      Simplified Chinese (简体中文)
+                      Chino simplificado (简体中文)
                     </SelectItem>
                   </SelectContent>
                 </Select>
@@ -173,11 +174,11 @@ export default function Login({}) {
                   onClick={postData}
                   className="w-full"
                 >
-                  Create Account
+                  Crear cuenta
                 </Button>
 
                 <p className="mt-2 text-xs text-muted-foreground text-center">
-                  Note this form is for external users only
+                  Este formulario es solo para usuarios externos
                 </p>
               </div>
             </CardContent>
@@ -186,14 +187,14 @@ export default function Login({}) {
 
         <div className="mt-8 text-center flex flex-col space-y-2">
           <span className="font-bold text-foreground">
-            Built with 💚 by Pepperminto Labs
+            Hecho con 💚 por OnDesk
           </span>
           <a
             href={process.env.DOCS_URL ?? "https://docs.pepperminto.dev"}
             target="_blank"
             className="text-foreground"
           >
-            Documentation
+            Documentación
           </a>
         </div>
       </div>

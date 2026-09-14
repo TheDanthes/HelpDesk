@@ -24,16 +24,16 @@ export default function Login({}) {
 
           toast({
             variant: "default",
-            title: "Success",
-            description: "Password reset email is on its way.",
+            title: "Listo",
+            description: "Te enviamos un correo para restablecer la contraseña.",
           });
           router.push("/auth/login");
         } else {
           toast({
             variant: "destructive",
-            title: "Error", 
+            title: "Error",
             description:
-              "There was an error with this request, please try again. If this issue persists, please contact support via the discord.",
+              "Hubo un error con esta solicitud, volvé a intentarlo. Si el problema persiste, comunicate con soporte.",
           });
         }
       });
@@ -46,11 +46,11 @@ export default function Login({}) {
           <img
             className="mx-auto h-36 w-auto"
             src="/login.svg"
-            alt="pepperminto.dev logo"
+            alt="Logo de OnDesk"
           />
         </a>
         <h2 className="mt-6 text-center text-3xl font-extrabold text-foreground">
-          Request Password Reset
+          Restablecer contraseña
         </h2>
       </div>
 
@@ -58,16 +58,16 @@ export default function Login({}) {
         <Card className="border-border/60 bg-card/80 shadow-lg backdrop-blur">
           <CardHeader className="space-y-2 text-center">
             <CardTitle className="text-xl text-foreground">
-              Reset your password
+              Restablecé tu contraseña
             </CardTitle>
             <p className="text-sm text-muted-foreground">
-              We’ll send you a reset link.
+              Te enviamos un enlace para restablecerla.
             </p>
           </CardHeader>
           <CardContent className="space-y-5">
             <div>
               <Label htmlFor="email" className="text-sm text-foreground">
-                Email address
+                Correo electrónico
               </Label>
               <div className="mt-2">
                 <Input
@@ -88,7 +88,7 @@ export default function Login({}) {
                   href="/auth/login"
                   className="font-medium text-primary hover:text-primary/80"
                 >
-                  Remember your password?
+                  ¿Te acordás tu contraseña?
                 </Link>
               </div>
             </div>
@@ -99,7 +99,7 @@ export default function Login({}) {
                 onClick={postData}
                 className="w-full"
               >
-                Submit Request
+                Enviar solicitud
               </Button>
             </div>
           </CardContent>
@@ -107,14 +107,14 @@ export default function Login({}) {
 
         <div className="mt-8 text-center flex flex-col space-y-2">
           <span className="font-bold text-foreground">
-            Built with 💚 by Pepperminto Labs
+            Hecho con 💚 por OnDesk
           </span>
           <a
             href={process.env.DOCS_URL ?? "https://docs.pepperminto.dev"}
             target="_blank"
             className="text-foreground"
           >
-            Documentation
+            Documentación
           </a>
         </div>
       </div>

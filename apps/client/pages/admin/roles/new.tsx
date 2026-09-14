@@ -117,7 +117,7 @@ export default function Roles() {
             >
               1
             </div>
-            <span className="ml-2">Configure Role</span>
+            <span className="ml-2">Configurar rol</span>
           </div>
           <div
             className={`flex-1 h-0.5 mx-4 ${
@@ -138,7 +138,7 @@ export default function Roles() {
             >
               2
             </div>
-            <span className="ml-2">Select Users</span>
+            <span className="ml-2">Seleccionar usuarios</span>
           </div>
         </div>
       </div>
@@ -148,7 +148,7 @@ export default function Roles() {
           <CardHeader>
             <div className="flex flex-row justify-between items-center">
               <Input
-                placeholder="Role Name"
+                placeholder="Nombre del rol"
                 value={roleName}
                 className="w-1/4"
                 onChange={(e) => setRoleName(e.target.value)}
@@ -158,13 +158,13 @@ export default function Roles() {
                 onClick={() => setStep(2)}
                 disabled={!roleName}
               >
-                Next
+                Siguiente
               </button>
             </div>
           </CardHeader>
           <CardContent>
             <div className="mb-4">
-              <h3 className="text-lg font-semibold mb-2">Select Permissions</h3>
+              <h3 className="text-lg font-semibold mb-2">Seleccionar permisos</h3>
               {PERMISSIONS_CONFIG.map((group) => (
                 <div key={group.category} className="mb-4">
                   <div className="flex items-center gap-2 mb-2">
@@ -178,7 +178,7 @@ export default function Roles() {
                         }
                         className="rounded"
                       />
-                      <span>Select All</span>
+                      <span>Seleccionar todo</span>
                     </label>
                   </div>
                   <div className="grid grid-cols-2 gap-2">
@@ -218,20 +218,20 @@ export default function Roles() {
         <Card>
           <CardHeader>
             <div className="flex flex-row justify-between items-center">
-              <CardTitle>Select Users</CardTitle>
+              <CardTitle>Seleccionar usuarios</CardTitle>
               <div className="flex gap-2">
                 <button
                   className="px-4 py-2 bg-gray-500 text-white rounded"
                   onClick={() => setStep(1)}
                 >
-                  Back
+                  Volver
                 </button>
                 <button
                   className="px-4 py-2 bg-green-500 text-white rounded"
                   onClick={handleAddRole}
                   disabled={isLoading}
                 >
-                  Create Role
+                  Crear rol
                 </button>
               </div>
             </div>
@@ -241,7 +241,7 @@ export default function Roles() {
               <div className="relative mb-4">
                 <Search className="absolute left-2 top-2.5 h-4 w-4 text-gray-500" />
                 <Input
-                  placeholder="Search users..."
+                  placeholder="Buscar usuarios..."
                   className="pl-8"
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
@@ -249,7 +249,7 @@ export default function Roles() {
               </div>
 
               {isLoading ? (
-                <div className="text-center py-4">Loading users...</div>
+                <div className="text-center py-4">Cargando usuarios...</div>
               ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                   {filteredUsers.map((user) => (
@@ -279,7 +279,7 @@ export default function Roles() {
 
               {!isLoading && filteredUsers.length === 0 && (
                 <div className="text-center py-4 text-gray-500">
-                  {searchTerm ? "No users found" : "No users available"}
+                  {searchTerm ? "No se encontraron usuarios" : "No hay usuarios disponibles"}
                 </div>
               )}
             </div>

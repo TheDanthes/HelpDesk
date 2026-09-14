@@ -24,8 +24,8 @@ export default function Login({}) {
         if (res.success) {
           toast({
             variant: "default",
-            title: "Success",
-            description: "A password reset email is on its way.",
+            title: "Listo",
+            description: "Te enviamos un correo para restablecer la contraseña.",
           });
           setView("password");
         } else {
@@ -33,7 +33,7 @@ export default function Login({}) {
             variant: "destructive",
             title: "Error",
             description:
-              "There was an error with this request, please try again. If this issue persists, please contact support via the discord.",
+              "Hubo un error con esta solicitud, volvé a intentarlo. Si el problema persiste, comunicate con soporte.",
           });
         }
       });
@@ -44,7 +44,7 @@ export default function Login({}) {
       toast({
         variant: "destructive",
         title: "Error",
-        description: "Password cannot be empty.",
+        description: "La contraseña no puede estar vacía.",
       });
     } else {
       await fetch(`/api/v1/auth/password-reset/password`, {
@@ -57,8 +57,8 @@ export default function Login({}) {
           if (res.success) {
             toast({
               variant: "default",
-              title: "Success",
-              description: "Password updated successfully.",
+              title: "Listo",
+              description: "La contraseña se actualizó correctamente.",
             });
             router.push("/auth/login");
           } else {
@@ -66,7 +66,7 @@ export default function Login({}) {
               variant: "destructive",
               title: "Error",
               description:
-                "There was an error with this request, please try again. If this issue persists, please contact support via the discord.",
+                "Hubo un error con esta solicitud, volvé a intentarlo. Si el problema persiste, comunicate con soporte.",
             });
           }
         });
@@ -77,7 +77,7 @@ export default function Login({}) {
     <div className="min-h-screen bg-background flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <h2 className="mt-6 text-center text-3xl font-extrabold text-foreground">
-          Reset Password
+          Restablecer contraseña
         </h2>
       </div>
 
@@ -85,10 +85,10 @@ export default function Login({}) {
         <Card className="border-border/60 bg-card/80 shadow-lg backdrop-blur">
           <CardHeader className="space-y-2 text-center">
             <CardTitle className="text-xl text-foreground">
-              Verify your reset code
+              Verificá tu código
             </CardTitle>
             <p className="text-sm text-muted-foreground">
-              Enter the code sent to your email.
+              Ingresá el código que enviamos a tu correo.
             </p>
           </CardHeader>
           <CardContent className="space-y-5">
@@ -96,7 +96,7 @@ export default function Login({}) {
               <>
                 <div>
                   <Label htmlFor="code" className="text-sm text-foreground">
-                    Code
+                    Código
                   </Label>
                   <div className="mt-2">
                     <Input
@@ -117,7 +117,7 @@ export default function Login({}) {
                     onClick={sendCode}
                     className="w-full"
                   >
-                    Check Code
+                    Verificar código
                   </Button>
                 </div>
               </>
@@ -125,7 +125,7 @@ export default function Login({}) {
               <>
                 <div>
                   <Label htmlFor="password" className="text-sm text-foreground">
-                    New Password
+                    Nueva contraseña
                   </Label>
                   <div className="mt-2">
                     <Input
@@ -146,7 +146,7 @@ export default function Login({}) {
                     onClick={updatPassword}
                     className="w-full"
                   >
-                    Change Password
+                    Cambiar contraseña
                   </Button>
                 </div>
               </>
@@ -156,14 +156,14 @@ export default function Login({}) {
 
         <div className="mt-8 text-center flex flex-col space-y-2">
           <span className="font-bold text-foreground">
-            Built with 💚 by Pepperminto Labs
+            Hecho con 💚 por OnDesk
           </span>
           <a
             href={process.env.DOCS_URL ?? "https://docs.pepperminto.dev"}
             target="_blank"
             className="text-foreground"
           >
-            Documentation
+            Documentación
           </a>
         </div>
       </div>

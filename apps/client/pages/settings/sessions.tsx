@@ -16,10 +16,10 @@ function getPrettyUserAgent(userAgent: string) {
   const browser =
     userAgent
       .match(/(Chrome|Safari|Firefox|Edge)\/[\d.]+/)?.[0]
-      .split("/")[0] ?? "Unknown Browser";
-  const os = userAgent.match(/\((.*?)\)/)?.[1].split(";")[0] ?? "Unknown OS";
+      .split("/")[0] ?? "Navegador desconocido";
+  const os = userAgent.match(/\((.*?)\)/)?.[1].split(";")[0] ?? "Sistema desconocido";
 
-  return `${browser} on ${os}`;
+  return `${browser} en ${os}`;
 }
 
 export default function Sessions() {
@@ -42,8 +42,8 @@ export default function Sessions() {
 
       toast({
         variant: "destructive",
-        title: "Error fetching sessions",
-        description: "Please try again later",
+        title: "Error al obtener las sesiones",
+        description: "Volvé a intentar más tarde",
       });
     }
   };
@@ -66,8 +66,8 @@ export default function Sessions() {
       }
 
       toast({
-        title: "Session revoked",
-        description: "The session has been revoked",
+        title: "Sesión revocada",
+        description: "La sesión se revocó correctamente",
       });
 
       fetchSessions();
@@ -79,9 +79,9 @@ export default function Sessions() {
   return (
     <div className="p-6">
       <div className="flex flex-col space-y-1 mb-4">
-        <h1 className="text-2xl font-bold">Active Sessions</h1>
+        <h1 className="text-2xl font-bold">Sesiones activas</h1>
         <span className="text-sm text-foreground">
-          Devices you are logged in to
+          Dispositivos donde tenés la sesión iniciada
         </span>
       </div>
       <div className="space-y-4">
@@ -101,10 +101,10 @@ export default function Sessions() {
                   {getPrettyUserAgent(session.userAgent)}
                 </div>
                 <div className="text-xs text-foreground">
-                  Created: {new Date(session.createdAt).toLocaleString("en-GB")}
+                  Creada: {new Date(session.createdAt).toLocaleString("en-GB")}
                 </div>
                 <div className="text-xs text-foreground">
-                  Expires: {new Date(session.expires).toLocaleString("en-GB")}
+                  Vence: {new Date(session.expires).toLocaleString("en-GB")}
                 </div>
               </div>
               <div className="opacity-0 group-hover:opacity-100 transition-opacity">
@@ -113,7 +113,7 @@ export default function Sessions() {
                   onClick={() => revokeSession(session.id)}
                   variant="destructive"
                 >
-                  Revoke
+                  Revocar
                 </Button>
               </div>
             </div>

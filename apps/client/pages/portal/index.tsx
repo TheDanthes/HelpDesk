@@ -29,22 +29,34 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
   const [tickets, setTickets] = useState<any>();
 
+  const [closedTickets, setClosedTickets] = useState<any[]>([]);
+
+  // OJO: /tickets/user/open filtra por tickets ASIGNADOS al usuario. Un usuario
+  // de cliente nunca los tiene asignados a si mismo (se asignan a un agente de
+  // OnDesk), asi que ese endpoint le devuelve siempre vacio y el portal mostraba
+  // "crea tu primer ticket" aunque tuviera veinte. Los endpoints /external son
+  // los que aplican el alcance por empresa.
   async function fetchTickets() {
-    await fetch(`/api/v1/tickets/user/open`, {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        setTickets(res.tickets);
-      });
+    const headers = { Authorization: `Bearer ${token}` };
+
+    const [open, closed] = await Promise.all([
+      fetch(`/api/v1/tickets/user/open/external`, { method: "GET", headers })
+        .then((res) => res.json())
+        .catch(() => ({ tickets: [] })),
+      fetch(`/api/v1/tickets/user/closed/external`, { method: "GET", headers })
+        .then((res) => res.json())
+        .catch(() => ({ tickets: [] })),
+    ]);
+
+    setTickets(open.tickets ?? []);
+    setClosedTickets(closed.tickets ?? []);
+    setOpenTickets((open.tickets ?? []).length);
+    setCompletedTickets((closed.tickets ?? []).length);
   }
 
   async function datafetch() {
-    fetchTickets();
-    await setLoading(false);
+    await fetchTickets();
+    setLoading(false);
   }
 
   useEffect(() => {
@@ -56,8 +68,27 @@ export default function Home() {
       <div className="w-full xl:w-[70%] max-w-5xl">
         {!loading && (
           <>
+            <div className="grid grid-cols-3 gap-4 mb-6">
+              <div className="rounded-lg border border-border/60 bg-card/80 p-4">
+                <div className="text-sm text-muted-foreground">Abiertos</div>
+                <div className="text-3xl font-bold">{openTickets}</div>
+              </div>
+              <div className="rounded-lg border border-border/60 bg-card/80 p-4">
+                <div className="text-sm text-muted-foreground">Cerrados</div>
+                <div className="text-3xl font-bold">{completedTickets}</div>
+              </div>
+              <div className="rounded-lg border border-border/60 bg-card/80 p-4">
+                <div className="text-sm text-muted-foreground">Total</div>
+                <div className="text-3xl font-bold">
+                  {openTickets + completedTickets}
+                </div>
+              </div>
+            </div>
+
             <div className="flex w-full flex-col mt-4 px-1 mb-4">
-              {tickets !== undefined && tickets.length === 0 ? (
+              {tickets !== undefined &&
+              tickets.length === 0 &&
+              closedTickets.length === 0 ? (
                 <>
                   <button
                     type="button"
@@ -79,7 +110,7 @@ export default function Home() {
                       />
                     </svg>
                     <span className="mt-2 block text-sm font-semibold text-gray-900 dark:text-white">
-                      Create your first issue
+                      Abrí tu primer ticket
                     </span>
                   </button>
                 </>
@@ -115,12 +146,14 @@ export default function Home() {
                             <TableRow
                               key={item.id}
                               className="hover:bg-accent/40 hover:cursor-pointer"
-                              onClick={() => router.push(`/issue/${item.id}`)}
+                              onClick={() => router.push(`/portal/issue/${item.id}`)}
                             >
                               <TableCell className="sm:max-w-[280px] 2xl:max-w-[720px] truncate px-4 py-1 text-sm font-medium text-gray-900 dark:text-white">
                                 {item.title}
                                 <dl className="font-normal lg:hidden">
-                                  <dt className="sr-only sm:hidden">Email</dt>
+                                  <dt className="sr-only sm:hidden">
+                                    Correo electrónico
+                                  </dt>
                                   <dd className="mt-1 truncate text-gray-500 sm:hidden">
                                     {item.email}
                                   </dd>

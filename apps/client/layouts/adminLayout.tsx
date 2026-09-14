@@ -35,14 +35,14 @@ export default function AdminLayout({ children }: any) {
   if (user && !user.isAdmin) {
     return (
       <div className="flex items-center justify-center h-screen">
-        <h1 className="text-4xl font-bold">You are not an admin</h1>
+        <h1 className="text-4xl font-bold">No sos administrador</h1>
       </div>
     );
   }
 
   const navigation = [
     {
-      name: "Back",
+      name: "Volver",
       href: "/",
       current: null,
       icon: MoveLeft,
@@ -60,7 +60,7 @@ export default function AdminLayout({ children }: any) {
       icon: ContactIcon,
     },
     {
-      name: "Email Queues",
+      name: "Colas de correo",
       href: "/admin/email-queues",
       current: location.pathname === "/admin/email-queues",
       icon: Mail,
@@ -72,13 +72,13 @@ export default function AdminLayout({ children }: any) {
       icon: Webhook,
     },
     {
-      name: "SMTP Email",
+      name: "Correo SMTP",
       href: "/admin/smtp",
       current: location.pathname === "/admin/smtp",
       icon: Mailbox,
     },
     {
-      name: "Authentication",
+      name: "Autenticación",
       href: "/admin/authentication",
       current: location.pathname === "/admin/authentication",
       icon: KeyRound,
@@ -90,13 +90,13 @@ export default function AdminLayout({ children }: any) {
       icon: RollerCoaster,
     },
     {
-      name: "Knowledge Base",
+      name: "Base de conocimiento",
       href: "/admin/knowledge-base",
       current: location.pathname === "/admin/knowledge-base",
       icon: BookOpen,
     },
     {
-      name: "Logs",
+      name: "Registros",
       href: "/admin/logs",
       current: location.pathname === "/admin/logs",
       icon: FileText,
@@ -152,7 +152,7 @@ export default function AdminLayout({ children }: any) {
                           className="-m-2.5 p-2.5"
                           onClick={() => setSidebarOpen(false)}
                         >
-                          <span className="sr-only">Close sidebar</span>
+                          <span className="sr-only">Cerrar barra lateral</span>
                           <XMarkIcon
                             className="h-6 w-6 text-white"
                             aria-hidden="true"
@@ -166,7 +166,7 @@ export default function AdminLayout({ children }: any) {
                         {/* <img className="h-8 w-auto" src="/logo.svg" alt="Workflow" /> */}
                           <Link href={process.env.BASE_URL ?? "https://pepperminto.dev"}>
                           <span className="text-3xl ml-2 hover:text-primary font-bold text-foreground">
-                            Pepperminto
+                            OnDesk
                           </span>
                         </Link>
                       </div>
@@ -217,7 +217,7 @@ export default function AdminLayout({ children }: any) {
                 {/* <img className="h-8 w-auto" src="/logo.svg" alt="Workflow" /> */}
                   <Link href={process.env.BASE_URL ?? "https://pepperminto.dev"}>
                   <span className="text-3xl ml-2 hover:text-primary font-bold text-foreground">
-                    Pepperminto
+                    OnDesk
                   </span>
                 </Link>
               </div>
@@ -265,7 +265,7 @@ export default function AdminLayout({ children }: any) {
                 className="-m-2.5 p-2.5 text-foreground lg:hidden"
                 onClick={() => setSidebarOpen(true)}
               >
-                <span className="sr-only">Open sidebar</span>
+                <span className="sr-only">Abrir barra lateral</span>
                 <Bars3Icon
                   className="h-6 w-6 text-foreground"
                   aria-hidden="true"
@@ -280,7 +280,7 @@ export default function AdminLayout({ children }: any) {
                   {user.isAdmin && (
                     <Link href="https://github.com/nulldoubt/Pepperminto/releases">
                       <span className="inline-flex items-center rounded-md bg-green-700/10 px-3 py-2 text-xs font-medium text-green-600 ring-1 ring-inset ring-green-500/20">
-                        Version 0.1.3
+                        Versión 0.1.3
                       </span>
                     </Link>
                   )}
@@ -317,7 +317,7 @@ export default function AdminLayout({ children }: any) {
                         variant="outline"
                         className="h-9 whitespace-nowrap hover:bg-accent hover:text-accent-foreground"
                       >
-                        Send Feedback
+                        Enviar comentarios
                       </Button>
                     </Link>
                   )}
@@ -332,13 +332,10 @@ export default function AdminLayout({ children }: any) {
               <main className="bg-background m-4">{children}</main>
             )}
             <footer className="border-t bg-background px-4 py-3 text-xs text-muted-foreground">
-              <span>Source available at </span>
-              <Link
-                href="https://github.com/nulldoubt/Pepperminto"
-                className="underline underline-offset-4 hover:text-foreground"
-              >
-                github.com/nulldoubt/Pepperminto
-              </Link>
+              <span>
+                Mesa de ayuda ·{" "}
+                <span className="font-medium text-foreground">OnDesk</span>
+              </span>
             </footer>
           </div>
         </div>

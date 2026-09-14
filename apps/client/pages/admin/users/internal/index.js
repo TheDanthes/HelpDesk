@@ -28,8 +28,10 @@ import {
   TableRow,
 } from "@/shadcn/ui/table";
 
+// includeExternal=true: sin esto la lista excluye a los usuarios de cliente y
+// dan la impresion de no haberse creado.
 const fetchUsers = async (token) => {
-  const res = await fetch(`/api/v1/users/all`, {
+  const res = await fetch(`/api/v1/users/all?includeExternal=true`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -233,6 +235,54 @@ export default function UserAuthPanel() {
         id: "email",
       },
       {
+        header: "Tipo",
+        id: "tipo",
+        cell: ({ row }) =>
+          row.original.external_user ? (
+            <span className="px-2 py-1 text-xs font-medium rounded-full bg-blue-100 text-blue-800">
+              Cliente
+            </span>
+          ) : (
+            <span className="px-2 py-1 text-xs font-medium rounded-full bg-muted text-muted-foreground">
+              OnDesk
+            </span>
+          ),
+      },
+      {
+        header: "Empresas",
+        id: "empresas",
+        cell: ({ row }) => {
+          if (!row.original.external_user) {
+            return (
+              <span className="text-muted-foreground text-sm">todas</span>
+            );
+          }
+
+          const memberships = row.original.clients ?? [];
+
+          if (memberships.length === 0) {
+            return (
+              <span className="text-amber-600 text-sm">
+                sin asignar — no ve ningun ticket
+              </span>
+            );
+          }
+
+          return (
+            <span className="text-sm">
+              {memberships
+                .map(
+                  (m) =>
+                    `${m.client?.name ?? m.clientId}${
+                      m.viewAll ? " (ve todos)" : ""
+                    }`
+                )
+                .join(", ")}
+            </span>
+          );
+        },
+      },
+      {
         header: "",
         id: "actions",
         cell: ({ row }) => {
@@ -264,14 +314,15 @@ export default function UserAuthPanel() {
         <div className="pt-10 pb-16 divide-y-2">
           <div className="px-4 sm:px-6 md:px-0">
             <h1 className="text-3xl font-extrabold text-foreground">
-              Internal Users
+              Usuarios
             </h1>
           </div>
           <div className="px-4 sm:px-6 md:px-0">
             <div className="sm:flex sm:items-center">
               <div className="sm:flex-auto mt-4">
                 <p className="mt-2 text-sm text-muted-foreground">
-                  A list of all internal users of your instance.
+                  Personal de OnDesk y usuarios de las empresas cliente. Las
+                  empresas se asignan en Empresas por usuario.
                 </p>
               </div>
               <div className="sm:ml-16 mt-5 sm:flex-none">

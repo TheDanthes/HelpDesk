@@ -50,8 +50,8 @@ export default function Tickets() {
           <div className="flex flex-col">
             <div className="py-2 px-6 flex flex-row items-center justify-between bg-gray-200 dark:bg-[#0A090C] border-b-[1px]">
               <span className="text-sm font-bold">
-                You have {data.tickets.length} open ticket
-                {data.tickets.length > 1 ? "'s" : ""}
+                Tenés {data.tickets.length}{" "}
+                {data.tickets.length > 1 ? "tickets abiertos" : "ticket abierto"}
               </span>
             </div>
             {data.tickets.length > 0 ? (
@@ -82,7 +82,7 @@ export default function Tickets() {
                       </div>
                       <div className="flex flex-row space-x-3 items-center">
                         <span className="text-xs">
-                          created at{" "}
+                          creado el{" "}
                           {moment(ticket.createdAt).format("DD/MM/yyyy")}
                         </span>
                         <span
@@ -124,7 +124,7 @@ export default function Tickets() {
                     />
                   </svg>
                   <span className="mt-2 block text-sm font-semibold text-gray-900">
-                    Create your first isssue
+                    Abrí tu primer ticket
                   </span>
                 </button>
               </div>

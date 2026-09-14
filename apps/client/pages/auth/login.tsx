@@ -42,7 +42,7 @@ export default function Login({}) {
               variant: "destructive",
               title: "Error",
               description:
-                "There was an error logging in, please try again. If this issue persists, please contact support via the discord.",
+                "Hubo un error al iniciar sesión, volvé a intentarlo. Si el problema persiste, comunicate con soporte.",
             });
           }
         });
@@ -50,9 +50,9 @@ export default function Login({}) {
       console.error(error);
       toast({
         variant: "destructive",
-        title: "Database Error",
+        title: "Error de base de datos",
         description:
-          "This is an issue with the database, please check the docker logs or contact support via discord.",
+          "Se produjo un problema con la base de datos. Revisá los registros o comunicate con soporte.",
       });
     }
   }
@@ -78,9 +78,9 @@ export default function Login({}) {
     if (router.query.error) {
       toast({
         variant: "destructive",
-        title: "Account Error - No Account Found",
+        title: "Error de cuenta - No se encontró la cuenta",
         description:
-          "It looks like you have tried to use SSO with an account that does not exist. Please try again or contact your admin to get you set up first.",
+          "Parece que intentaste ingresar con SSO usando una cuenta que no existe. Volvé a intentarlo o pedile a tu administrador que te dé de alta.",
       });
     }
   }, [router]);
@@ -89,7 +89,7 @@ export default function Login({}) {
     <div className="min-h-screen bg-background flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <h2 className="mt-6 text-center text-3xl font-extrabold text-foreground">
-          Welcome to Pepperminto
+          Bienvenido a OnDesk
         </h2>
       </div>
 
@@ -100,16 +100,16 @@ export default function Login({}) {
           <Card className="border-border/60 bg-card/80 shadow-lg backdrop-blur">
             <CardHeader className="space-y-2 text-center">
               <CardTitle className="text-xl text-foreground">
-                Sign in to your workspace
+                Iniciá sesión en tu espacio de trabajo
               </CardTitle>
               <p className="text-sm text-muted-foreground">
-                Use your Pepperminto account to continue.
+                Usá tu cuenta de OnDesk para continuar.
               </p>
             </CardHeader>
             <CardContent className="space-y-5">
               <div>
                 <Label htmlFor="email" className="text-sm text-foreground">
-                  Email address
+                  Correo electrónico
                 </Label>
                 <div className="mt-2">
                   <Input
@@ -131,7 +131,7 @@ export default function Login({}) {
 
               <div>
                 <Label htmlFor="password" className="text-sm text-foreground">
-                  Password
+                  Contraseña
                 </Label>
                 <div className="mt-2">
                   <Input
@@ -157,7 +157,7 @@ export default function Login({}) {
                     href="/auth/forgot-password"
                     className="font-medium text-primary hover:text-primary/80"
                   >
-                    Forgot your password?
+                    ¿Olvidaste tu contraseña?
                   </Link>
                 </div>
               </div>
@@ -168,7 +168,7 @@ export default function Login({}) {
                   onClick={postData}
                   className="w-full"
                 >
-                  Sign In
+                  Iniciar sesión
                 </Button>
 
                 {url && (
@@ -178,7 +178,7 @@ export default function Login({}) {
                     variant="outline"
                     className="w-full"
                   >
-                    Sign in with OIDC
+                    Iniciar sesión con OIDC
                   </Button>
                 )}
               </div>
@@ -188,14 +188,14 @@ export default function Login({}) {
 
         <div className="mt-8 text-center flex flex-col space-y-2">
           <span className="font-bold text-foreground">
-            Built with 💚 by Pepperminto Labs
+            Hecho con 💚 por OnDesk
           </span>
           <a
             href={process.env.DOCS_URL ?? "https://docs.pepperminto.dev"}
             target="_blank"
             className="text-foreground"
           >
-            Documentation
+            Documentación
           </a>
         </div>
       </div>

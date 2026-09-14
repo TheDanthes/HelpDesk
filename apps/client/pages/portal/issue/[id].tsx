@@ -103,14 +103,14 @@ export default function Ticket() {
     <div>
       {isLoading && (
         <div className="min-h-screen flex flex-col justify-center items-center py-12 sm:px-6 lg:px-8">
-          <h2> Loading data ... </h2>
+          <h2> Cargando datos ... </h2>
           {/* <Spin /> */}
         </div>
       )}
 
       {isError && (
         <div className="min-h-screen flex flex-col justify-center items-center py-12 sm:px-6 lg:px-8">
-          <h2 className="text-2xl font-bold"> Error fetching data ... </h2>
+          <h2 className="text-2xl font-bold"> Error al cargar los datos ... </h2>
           {/* <img src={server} className="h-96 w-96" alt="error" /> */}
         </div>
       )}
@@ -129,14 +129,14 @@ export default function Ticket() {
                       <span className="font-medium text-gray-900 dark:text-white">
                         {data.ticket.email}
                       </span>{" "}
-                      via
+                      vía
                       <a
                         href="#"
                         className="font-medium text-gray-900 dark:text-white"
                       >
                         {data.ticket.fromImap === true
-                          ? " Email - "
-                          : " Ticket Creation - "}
+                          ? " Correo electrónico - "
+                          : " Alta de ticket - "}
                       </a>
                       #{data.ticket.Number}
                     </p>
@@ -180,7 +180,7 @@ export default function Ticket() {
                         aria-hidden="true"
                       />
                       <span className="text-sm font-medium text-gray-900 dark:text-white">
-                        Created on{" "}
+                        Creado el{" "}
                         {moment(data.ticket.createdAt).format("DD/MM/YYYY")}
                       </span>
                     </div>
@@ -281,16 +281,16 @@ export default function Ticket() {
                               </div>
                               <div className="ml-3 text-xs font-semibold text-gray-900">
                                 {data.ticket.status === "needs_support" && (
-                                  <span>Needs Support</span>
+                                  <span>Requiere soporte</span>
                                 )}
                                 {data.ticket.status === "in_progress" && (
-                                  <span>In Progress</span>
+                                  <span>En curso</span>
                                 )}
                                 {data.ticket.status === "in_review" && (
-                                  <span>In Review</span>
+                                  <span>En revisión</span>
                                 )}
                                 {data.ticket.status === "done" && (
-                                  <span>Done</span>
+                                  <span>Resuelto</span>
                                 )}
                               </div>
                             </div>
@@ -368,11 +368,11 @@ export default function Ticket() {
                                           <div className=" flex flex-row space-x-1">
                                             <span className="text-xs text-gray-500 dark:text-white">
                                               {item.public
-                                                ? "Publicly"
-                                                : "Internally"}
+                                                ? "Comentó públicamente"
+                                                : "Comentó internamente"}
                                             </span>
                                             <span className="text-xs text-gray-500 dark:text-white">
-                                              commented at
+                                              el
                                             </span>
 
                                             <span className="text-xs text-gray-500 dark:text-white">
@@ -406,7 +406,7 @@ export default function Ticket() {
                                   name="comment"
                                   rows={3}
                                   className="block w-full dark:bg-black rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-gray-900 sm:text-sm sm:leading-6"
-                                  placeholder="Leave a comment"
+                                  placeholder="Escribí un comentario"
                                   defaultValue={""}
                                   onChange={(e) => setComment(e.target.value)}
                                 />
@@ -538,7 +538,7 @@ export default function Ticket() {
                 <div className="border-t border-gray-200">
                   <div className="flex flex-row items-center justify-between mt-2">
                     <span className="text-sm font-medium text-gray-500 dark:text-white">
-                      Time Tracking
+                      Tiempo registrado
                     </span>
                   </div>
                   {data.ticket.TimeTracking.length > 0 ? (
@@ -546,14 +546,14 @@ export default function Ticket() {
                       <div key={i.id} className="text-xs">
                         <div className="flex flex-row space-x-1.5 items-center dark:text-white">
                           <span>{i.user.name} / </span>
-                          <span>{i.time} minutes</span>
+                          <span>{i.time} minutos</span>
                         </div>
                       </div>
                     ))
                   ) : (
                     <div>
                       <span className="text-xs dark:text-white">
-                        No Time added
+                        Sin tiempo registrado
                       </span>
                     </div>
                   )}

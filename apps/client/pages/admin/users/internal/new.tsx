@@ -23,7 +23,7 @@ export default function CreateUser() {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [admin, setAdmin] = useState(false);
-  const [language, setLanguage] = useState("en");
+  const [language, setLanguage] = useState("es");
   const [externalUser, setExternalUser] = useState(false);
   const [companies, setCompanies] = useState<{ id: string; name: string }[]>([]);
   const [companyId, setCompanyId] = useState("");

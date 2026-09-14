@@ -109,22 +109,22 @@ export default function UserProfile() {
                     <SelectValue placeholder={t("language")} />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="en">English</SelectItem>
-                    <SelectItem value="de">German</SelectItem>
-                    <SelectItem value="se">Swedish</SelectItem>
-                    <SelectItem value="es">Spanish</SelectItem>
-                    <SelectItem value="no">Norwegian</SelectItem>
-                    <SelectItem value="fr">French</SelectItem>
-                    <SelectItem value="tl">Tagalong</SelectItem>
-                    <SelectItem value="da">Danish</SelectItem>
-                    <SelectItem value="pt">Portuguese</SelectItem>
+                    <SelectItem value="en">Inglés</SelectItem>
+                    <SelectItem value="de">Alemán</SelectItem>
+                    <SelectItem value="se">Sueco</SelectItem>
+                    <SelectItem value="es">Español</SelectItem>
+                    <SelectItem value="no">Noruego</SelectItem>
+                    <SelectItem value="fr">Francés</SelectItem>
+                    <SelectItem value="tl">Tagalo</SelectItem>
+                    <SelectItem value="da">Danés</SelectItem>
+                    <SelectItem value="pt">Portugués</SelectItem>
                     <SelectItem value="it">Italiano</SelectItem>
-                    <SelectItem value="he">Hebrew</SelectItem>
-                    <SelectItem value="tr">Turkish</SelectItem>
-                    <SelectItem value="hu">Hungarian</SelectItem>
-                    <SelectItem value="th">Thai (ภาษาไทย)</SelectItem>
+                    <SelectItem value="he">Hebreo</SelectItem>
+                    <SelectItem value="tr">Turco</SelectItem>
+                    <SelectItem value="hu">Húngaro</SelectItem>
+                    <SelectItem value="th">Tailandés (ภาษาไทย)</SelectItem>
                     <SelectItem value="zh-CN">
-                      Simplified Chinese (简体中文)
+                      Chino simplificado (简体中文)
                     </SelectItem>
                   </SelectContent>
                 </Select>

@@ -51,13 +51,13 @@ export default function UserNotifications() {
                       className="text-sm font-medium text-foreground"
                       passive
                     >
-                      Ticket Creation
+                      Creación de tickets
                     </Switch.Label>
                     <Switch.Description
                       as="span"
                       className="text-sm text-foreground-muted"
                     >
-                      Get emailed when a new ticket is created
+                      Recibí un correo cuando se crea un ticket nuevo
                     </Switch.Description>
                   </span>
                   <Switch
@@ -88,14 +88,14 @@ export default function UserNotifications() {
                       className="text-sm font-medium text-foreground"
                       passive
                     >
-                      Ticket Status Change
+                      Cambio de estado del ticket
                     </Switch.Label>
                     <Switch.Description
                       as="span"
                       className="text-sm text-foreground-muted"
                     >
-                      Get emailed when a ticket you're assigned to has it's
-                      status changed
+                      Recibí un correo cuando cambia el estado de un ticket que
+                      tenés asignado
                     </Switch.Description>
                   </span>
                   <Switch
@@ -126,13 +126,13 @@ export default function UserNotifications() {
                       className="text-sm font-medium text-foreground"
                       passive
                     >
-                      Assgined new ticket
+                      Asignación de tickets
                     </Switch.Label>
                     <Switch.Description
                       as="span"
                       className="text-sm text-foreground-muted"
                     >
-                      Get emailed when you get assigned a new ticket
+                      Recibí un correo cuando te asignan un ticket nuevo
                     </Switch.Description>
                   </span>
                   <Switch
@@ -163,13 +163,13 @@ export default function UserNotifications() {
                       className="text-sm font-medium text-foreground"
                       passive
                     >
-                      Ticket Comment
+                      Comentarios en tickets
                     </Switch.Label>
                     <Switch.Description
                       as="span"
                       className="text-sm text-foreground-muted"
                     >
-                      Get emailed when a comment is added to your ticket
+                      Recibí un correo cuando alguien comenta tu ticket
                     </Switch.Description>
                   </span>
                   <Switch
@@ -197,7 +197,7 @@ export default function UserNotifications() {
                   type="button"
                   className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-primary hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
                 >
-                  save
+                  Guardar
                 </button>
               </div>
             </div>

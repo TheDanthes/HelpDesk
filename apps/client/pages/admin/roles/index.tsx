@@ -32,7 +32,7 @@ export default function Roles() {
   }, []);
 
   const handleDeleteRole = async (roleId) => {
-    if (!confirm("Are you sure you want to delete this role?")) return;
+    if (!confirm("¿Seguro que querés eliminar este rol?")) return;
 
     await fetch(`/api/v1/role/${roleId}/delete`, {
       method: "DELETE",
@@ -68,15 +68,15 @@ export default function Roles() {
     });
 
     toast({
-      title: "Role Status Updated!",
-      description: "Roles have been updated successfully.",
+      title: "¡Estado de los roles actualizado!",
+      description: "Los roles se actualizaron correctamente.",
     });
 
     fetchRoles();
   };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div>Cargando...</div>;
   }
 
   return (
@@ -89,19 +89,19 @@ export default function Roles() {
               router.push("/admin/roles/new");
             }}
           >
-            Add Role
+            Nuevo rol
           </button>
           <button
             className="px-4 py-2 bg-yellow-500 text-white rounded"
             onClick={() => handleToggleAllRoles(false)}
           >
-            Disable All Roles
+            Desactivar todos los roles
           </button>
           <button
             className="px-4 py-2 bg-blue-500 text-white rounded"
             onClick={() => handleToggleAllRoles(true)}
           >
-            Enable All Roles
+            Activar todos los roles
           </button>
         </div>
       </div>
@@ -116,12 +116,12 @@ export default function Roles() {
                   : "bg-red-100 text-red-800"
               }`}
             >
-              {isAllRolesActive ? "Active" : "Inactive"}
+              {isAllRolesActive ? "Activos" : "Inactivos"}
             </span>
           </CardHeader>
           <CardContent>
             {roles.length === 0 ? (
-              <div>No roles available</div>
+              <div>No hay roles disponibles</div>
             ) : (
               <ul>
                 {roles.map((role) => (
@@ -146,21 +146,21 @@ export default function Roles() {
                           className="px-3 py-1 bg-blue-500 text-white rounded text-sm"
                           onClick={() => router.push(`/admin/roles/${role.id}`)}
                         >
-                          Edit
+                          Editar
                         </button>
                         <button
                           className="px-3 py-1 bg-red-500 text-white rounded text-sm"
                           onClick={() => {
                             if (
                               window.confirm(
-                                "Are you sure you want to delete this role?"
+                                "¿Seguro que querés eliminar este rol?"
                               )
                             ) {
                               handleDeleteRole(role.id);
                             }
                           }}
                         >
-                          Delete
+                          Eliminar
                         </button>
                       </div>
                     </div>

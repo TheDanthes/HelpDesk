@@ -71,6 +71,7 @@ export function authRoutes(fastify: FastifyInstance) {
             password: { type: "string" },
             admin: { type: "boolean" },
             name: { type: "string" },
+            language: { type: "string" },
             external_user: { type: "boolean" },
             clients: {
               type: "array",
@@ -98,12 +99,13 @@ export function authRoutes(fastify: FastifyInstance) {
       },
     },
     async (request: FastifyRequest, reply: FastifyReply) => {
-      let { email, password, admin, name, external_user, clients } =
+      let { email, password, admin, name, language, external_user, clients } =
         request.body as {
           email: string;
           password: string;
           admin: boolean;
           name: string;
+          language?: string;
           external_user?: boolean;
           clients?: { clientId: string; viewAll?: boolean }[];
         };
@@ -141,6 +143,9 @@ export function authRoutes(fastify: FastifyInstance) {
           password: await bcrypt.hash(password, 10),
           name,
           isAdmin: admin,
+          // El formulario de alta ya mandaba este campo, pero el endpoint lo
+          // ignoraba: todos los usuarios quedaban con el idioma por defecto.
+          language: language || "es",
           external_user: Boolean(external_user),
           clients: memberships.length ? { create: memberships } : undefined,
         },
